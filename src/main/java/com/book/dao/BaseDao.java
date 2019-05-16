@@ -1,4 +1,4 @@
-package com.book.util;
+package com.book.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,14 +8,14 @@ import java.sql.SQLException;
 
 public class BaseDao {
 
-	private Connection conn;
-	private PreparedStatement ps;
-	private ResultSet rs;
+	public Connection conn;
+	public PreparedStatement ps;
+	public ResultSet rs;
 
 	// 与数据库建立连接
 	public boolean getConnection() {
 		String driver = "com.mysql.cj.jdbc.Driver";
-		String url = "jdbc:mysql://localhost:3306/test?serverTimezone=UTC";
+		String url = "jdbc:mysql://localhost:3306/library_system?serverTimezone=UTC";
 		String user = "root";
 		String password = "123456";
 
@@ -33,7 +33,7 @@ public class BaseDao {
 	}
 
 	// 所有查询方法的模板
-	public ResultSet select(String sql, Object[] obj) {
+	public ResultSet selectJDBC(String sql, Object[] obj) {
 		getConnection();
 		try {
 			// 使用Preparedstatement对象预编译sql
@@ -50,7 +50,7 @@ public class BaseDao {
 	}
 
 	// 所有增删改方法的模板
-	public int update(String sql, Object[] obj) {
+	public int updateJDBC(String sql, Object[] obj) {
 		getConnection();
 		try {
 			ps = conn.prepareStatement(sql);
@@ -66,7 +66,7 @@ public class BaseDao {
 	}
 
 	// 释放资源
-	public boolean close() {
+	public boolean closeJDBC() {
 		try {
 			if (!rs.isClosed()) {
 				rs.close();
