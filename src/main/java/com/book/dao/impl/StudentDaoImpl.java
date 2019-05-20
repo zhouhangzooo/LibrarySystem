@@ -11,9 +11,9 @@ import com.book.entity.Student;
 
 public class StudentDaoImpl extends BaseDao implements IStudentDao {
 
-	public boolean login(Student student) {
+	public boolean login(String id, String password) {
 		String sql = "select `s_id`, `password` from student where `s_id` = ? and `password` = ?";
-		Object[] obj = { student.getId(), student.getPassword() };
+		Object[] obj = { id, password };
 		ResultSet rs = selectJDBC(sql, obj);
 		try {
 			if (rs.next()) {

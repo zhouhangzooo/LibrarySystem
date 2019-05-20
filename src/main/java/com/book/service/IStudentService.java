@@ -12,7 +12,7 @@ import com.book.entity.Student;
  */
 public interface IStudentService {
 	
-	public boolean login(Student student);
+	public boolean login(String id,String password);
 
 	public Student selectById(String id);
 

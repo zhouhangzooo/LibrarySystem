@@ -8,8 +8,8 @@ import com.book.service.IStudentService;
 
 public class StudentServiceImpl implements IStudentService {
 
-	public boolean login(Student student) {
-		boolean result = DaoFactory.getIStudentDaoInstance().login(student);
+	public boolean login(String id, String password) {
+		boolean result = DaoFactory.getIStudentDaoInstance().login(id, password);
 		return result;
 	}
 
