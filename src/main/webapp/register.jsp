@@ -10,7 +10,7 @@
 	<script src="./static/js/jquery-3.2.1.js"></script>
 	<form>
 		学生ID：<input id="id"><br> 姓名：<input id="name"><br>
-		密码：<input id="password"><br> 性别：<input id="sex"><br>
+		密码：<input id="password" type="password"><br> 性别：<input id="sex"><br>
 		年龄：<input id="age"><br> 专业：<input id="profession"><br>
 		年级：<input id="grade"><br>
 	</form>

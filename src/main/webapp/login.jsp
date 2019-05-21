@@ -12,7 +12,7 @@
 
 	<form>
 		学生ID：<input id="id" name="id"><br> 密码：<input
-			id="password" name="password"><br>
+			id="password" name="password" type="password"><br>
 	</form>
 
 	<p id="info"></p>

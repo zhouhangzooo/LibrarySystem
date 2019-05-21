@@ -43,10 +43,10 @@ CREATE TABLE `book` (
   `book_name` varchar(50) NOT NULL,
   `book_author` varchar(20) NOT NULL,
   `book_pub` varchar(50),
-  `book_num` int NOT NULL,
   `sort_id` int NOT NULL,
   `book_record` datetime,
   `book_price` DECIMAL NOT NULL,
+  `book_borrow` int DEFAULT 0,
   PRIMARY KEY (`ISBN`),
   FOREIGN KEY (sort_id) REFERENCES book_sort(sort_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

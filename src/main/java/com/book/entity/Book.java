@@ -9,7 +9,7 @@ public class Book {
 	private String book_name;
 	private String book_author;
 	private String book_pub;
-	private int book_num;
+	private int book_borrow;
 	private int sort_id;
 	private Date book_record;
 	private BigDecimal book_price;
@@ -46,12 +46,12 @@ public class Book {
 		this.book_pub = book_pub;
 	}
 
-	public int getBook_num() {
-		return book_num;
+	public int getBook_borrow() {
+		return book_borrow;
 	}
 
-	public void setBook_num(int book_num) {
-		this.book_num = book_num;
+	public void setBook_borrow(int book_borrow) {
+		this.book_borrow = book_borrow;
 	}
 
 	public int getSort_id() {

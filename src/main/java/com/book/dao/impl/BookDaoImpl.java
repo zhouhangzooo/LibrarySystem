@@ -21,7 +21,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 				m.setISBN(rs.getString("iSBN"));
 				m.setBook_author(rs.getString("book_author"));
 				m.setBook_name(rs.getString("book_name"));
-				m.setBook_num(rs.getInt("book_num"));
+				m.setBook_borrow(rs.getInt("book_borrow"));
 				m.setBook_price(rs.getBigDecimal("book_price"));
 				m.setBook_pub(rs.getString("book_pub"));
 				m.setBook_record(rs.getDate("book_record"));
@@ -45,7 +45,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 				m.setISBN(rs.getString("iSBN"));
 				m.setBook_author(rs.getString("book_author"));
 				m.setBook_name(rs.getString("book_name"));
-				m.setBook_num(rs.getInt("book_num"));
+				m.setBook_borrow(rs.getInt("book_borrow"));
 				m.setBook_price(rs.getBigDecimal("book_price"));
 				m.setBook_pub(rs.getString("book_pub"));
 				m.setBook_record(rs.getDate("book_record"));
@@ -61,8 +61,8 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 	}
 
 	public int insert(Book m) {
-		String sql = "insert into book (ISBN, book_name, book_author, book_pub, book_num, sort_id, book_record, book_price) values (?,?,?,?,?,?,?,?)";
-		Object[] obj = { m.getISBN(), m.getBook_name(), m.getBook_author(), m.getBook_pub(), m.getBook_num(),
+		String sql = "insert into book (ISBN, book_name, book_author, book_pub, book_borrow, sort_id, book_record, book_price) values (?,?,?,?,?,?,?,?)";
+		Object[] obj = { m.getISBN(), m.getBook_name(), m.getBook_author(), m.getBook_pub(), m.getBook_borrow(),
 				m.getSort_id(), m.getBook_record(), m.getBook_price() };
 		int lines = updateJDBC(sql, obj);
 		if (lines > 0) {
@@ -72,8 +72,8 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 	}
 
 	public int update(Book m) {
-		String sql = "update book set ISBN = ?, book_name = ?, book_author = ?, book_pub = ?, book_num = ?, sort_id = ?, book_record = ?, book_price = ?";
-		Object[] obj = { m.getISBN(), m.getBook_name(), m.getBook_author(), m.getBook_pub(), m.getBook_num(),
+		String sql = "update book set ISBN = ?, book_name = ?, book_author = ?, book_pub = ?, book_borrow = ?, sort_id = ?, book_record = ?, book_price = ?";
+		Object[] obj = { m.getISBN(), m.getBook_name(), m.getBook_author(), m.getBook_pub(), m.getBook_borrow(),
 				m.getSort_id(), m.getBook_record(), m.getBook_price() };
 		int lines = updateJDBC(sql, obj);
 		if (lines > 0) {
@@ -91,15 +91,15 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 			while (rs.next()) {
 
 				Book m = new Book();
-				m.setISBN(rs.getString("iSBN"));
+				m.setISBN(rs.getString("ISBN"));
 				m.setBook_author(rs.getString("book_author"));
 				m.setBook_name(rs.getString("book_name"));
-				m.setBook_num(rs.getInt("book_num"));
+				m.setBook_borrow(rs.getInt("book_borrow"));
 				m.setBook_price(rs.getBigDecimal("book_price"));
 				m.setBook_pub(rs.getString("book_pub"));
 				m.setBook_record(rs.getDate("book_record"));
 				m.setSort_id(rs.getInt("sort_id"));
-
+				
 				lists.add(m);
 			}
 			return lists;
