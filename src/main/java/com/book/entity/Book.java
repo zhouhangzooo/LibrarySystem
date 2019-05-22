@@ -11,7 +11,7 @@ public class Book {
 	private String book_pub;
 	private int book_borrow;
 	private int sort_id;
-	private Date book_record;
+	private String book_record;
 	private BigDecimal book_price;
 
 	public String getISBN() {
@@ -62,11 +62,11 @@ public class Book {
 		this.sort_id = sort_id;
 	}
 
-	public Date getBook_record() {
+	public String getBook_record() {
 		return book_record;
 	}
 
-	public void setBook_record(Date book_record) {
+	public void setBook_record(String book_record) {
 		this.book_record = book_record;
 	}
 

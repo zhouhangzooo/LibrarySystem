@@ -21,10 +21,10 @@ public class BorrowDaoImpl extends BaseDao implements IBorrowDao {
 				m.setId(rs.getInt("id"));
 				m.setISBN(rs.getString("iSBN"));
 				m.setBook_name(rs.getString("book_name"));
-				m.setBorrow_date(rs.getDate("borrow_date"));
-				m.setExpect_return_date(rs.getDate("expect_return_date"));
+				m.setBorrow_date(rs.getString("borrow_date"));
+				m.setExpect_return_date(rs.getString("expect_return_date"));
 				m.setPrice(rs.getBigDecimal("book_price"));
-				m.setReturn_date(rs.getDate("return_date"));
+				m.setReturn_date(rs.getString("return_date"));
 				m.setS_id(rs.getString("s_id"));
 			}
 			return m;
@@ -45,10 +45,10 @@ public class BorrowDaoImpl extends BaseDao implements IBorrowDao {
 				m.setId(rs.getInt("id"));
 				m.setISBN(rs.getString("iSBN"));
 				m.setBook_name(rs.getString("book_name"));
-				m.setBorrow_date(rs.getDate("borrow_date"));
-				m.setExpect_return_date(rs.getDate("expect_return_date"));
+				m.setBorrow_date(rs.getString("borrow_date"));
+				m.setExpect_return_date(rs.getString("expect_return_date"));
 				m.setPrice(rs.getBigDecimal("book_price"));
-				m.setReturn_date(rs.getDate("return_date"));
+				m.setReturn_date(rs.getString("return_date"));
 				m.setS_id(rs.getString("s_id"));
 
 				lists.add(m);
@@ -94,10 +94,10 @@ public class BorrowDaoImpl extends BaseDao implements IBorrowDao {
 				m.setId(rs.getInt("id"));
 				m.setISBN(rs.getString("iSBN"));
 				m.setBook_name(rs.getString("book_name"));
-				m.setBorrow_date(rs.getDate("borrow_date"));
-				m.setExpect_return_date(rs.getDate("expect_return_date"));
+				m.setBorrow_date(rs.getString("borrow_date"));
+				m.setExpect_return_date(rs.getString("expect_return_date"));
 				m.setPrice(rs.getBigDecimal("book_price"));
-				m.setReturn_date(rs.getDate("return_date"));
+				m.setReturn_date(rs.getString("return_date"));
 				m.setS_id(rs.getString("s_id"));
 
 				lists.add(m);

@@ -10,9 +10,9 @@ public class Borrow {
 	private String s_id;
 	private BigDecimal price;
 	private String book_name;
-	private Date borrow_date;
-	private Date expect_return_date;
-	private Date return_date;
+	private String borrow_date;
+	private String expect_return_date;
+	private String return_date;
 
 	public int getId() {
 		return id;
@@ -54,27 +54,27 @@ public class Borrow {
 		this.book_name = book_name;
 	}
 
-	public Date getBorrow_date() {
+	public String getBorrow_date() {
 		return borrow_date;
 	}
 
-	public void setBorrow_date(Date borrow_date) {
+	public void setBorrow_date(String borrow_date) {
 		this.borrow_date = borrow_date;
 	}
 
-	public Date getExpect_return_date() {
+	public String getExpect_return_date() {
 		return expect_return_date;
 	}
 
-	public void setExpect_return_date(Date expect_return_date) {
+	public void setExpect_return_date(String expect_return_date) {
 		this.expect_return_date = expect_return_date;
 	}
 
-	public Date getReturn_date() {
+	public String getReturn_date() {
 		return return_date;
 	}
 
-	public void setReturn_date(Date return_date) {
+	public void setReturn_date(String return_date) {
 		this.return_date = return_date;
 	}
 

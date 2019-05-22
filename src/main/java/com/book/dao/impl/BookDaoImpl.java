@@ -6,8 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.book.dao.BaseDao;
+import com.book.dao.DaoFactory;
 import com.book.dao.IBookDao;
 import com.book.entity.Book;
+import com.book.util.DateUtils;
+import com.mysql.cj.util.Util;
 
 public class BookDaoImpl extends BaseDao implements IBookDao {
 
@@ -24,7 +27,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 				m.setBook_borrow(rs.getInt("book_borrow"));
 				m.setBook_price(rs.getBigDecimal("book_price"));
 				m.setBook_pub(rs.getString("book_pub"));
-				m.setBook_record(rs.getDate("book_record"));
+				m.setBook_record(rs.getString("book_record"));
 				m.setSort_id(rs.getInt("sort_id"));
 			}
 			return m;
@@ -48,7 +51,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 				m.setBook_borrow(rs.getInt("book_borrow"));
 				m.setBook_price(rs.getBigDecimal("book_price"));
 				m.setBook_pub(rs.getString("book_pub"));
-				m.setBook_record(rs.getDate("book_record"));
+				m.setBook_record(rs.getString("book_record"));
 				m.setSort_id(rs.getInt("sort_id"));
 
 				lists.add(m);
@@ -97,7 +100,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 				m.setBook_borrow(rs.getInt("book_borrow"));
 				m.setBook_price(rs.getBigDecimal("book_price"));
 				m.setBook_pub(rs.getString("book_pub"));
-				m.setBook_record(rs.getDate("book_record"));
+				m.setBook_record(rs.getString("book_record"));
 				m.setSort_id(rs.getInt("sort_id"));
 				
 				lists.add(m);
@@ -117,6 +120,41 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 			return 1;
 		}
 		return 0;
+	}
+
+	//借阅操作，修改book的book_borrow的值，0为可借阅，1为已借阅，另外在借阅表添加借阅书籍的数据
+	public boolean updateBookStatus(String ISBN) {
+		Book m = new Book();
+		String sql = "select * from book where ISBN = ?";
+		Object[] obj = { ISBN };
+		ResultSet rs = selectJDBC(sql, obj);
+		try {
+			while (rs.next()) {
+				m.setISBN(rs.getString("iSBN"));
+				m.setBook_author(rs.getString("book_author"));
+				m.setBook_name(rs.getString("book_name"));
+				if(rs.getInt("book_borrow")!= 0)
+				{
+					return false;
+				}
+				m.setBook_borrow(1);
+				m.setBook_price(rs.getBigDecimal("book_price"));
+				m.setBook_pub(rs.getString("book_pub"));
+				m.setBook_record(rs.getString("book_record"));
+				m.setSort_id(rs.getInt("sort_id"));
+			}
+			int result = update(m);
+			if(result == 0)
+			{
+				return false;
+			}
+			//TODO 在借阅表中添加数据
+//			DaoFactory.getIBorrowDaoInstance().insert(borrow);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

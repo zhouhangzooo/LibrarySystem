@@ -23,5 +23,7 @@ public interface IBookDao {
 	public List<Book> selectList();
 	
 	public int deleteByISBN(String ISBN);
+	
+	public boolean updateBookStatus(String ISBN);
 
 }

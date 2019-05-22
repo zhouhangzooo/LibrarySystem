@@ -20,7 +20,7 @@
 		<description></description>
 		<display-name>BookServlet</display-name>
 		<servlet-name>BookServlet</servlet-name>
-		<servlet-class>com.book.servlet.BookServlet</servlet-class>
+		<servlet-class>com.book.servlet.book.BookServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>BookServlet</servlet-name>
@@ -30,27 +30,27 @@
 		<description></description>
 		<display-name>StudentLoginServlet</display-name>
 		<servlet-name>StudentLoginServlet</servlet-name>
-		<servlet-class>com.book.servlet.StudentLoginServlet</servlet-class>
+		<servlet-class>com.book.servlet.user.StudentLoginServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>StudentLoginServlet</servlet-name>
 		<url-pattern>/StudentLoginServlet</url-pattern>
 	</servlet-mapping>
 	<servlet>
-    <description></description>
-    <display-name>StudentRegisterServlet</display-name>
-    <servlet-name>StudentRegisterServlet</servlet-name>
-    <servlet-class>com.book.servlet.StudentRegisterServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>StudentRegisterServlet</servlet-name>
-    <url-pattern>/StudentRegisterServlet</url-pattern>
-  </servlet-mapping>
+		<description></description>
+		<display-name>StudentRegisterServlet</display-name>
+		<servlet-name>StudentRegisterServlet</servlet-name>
+		<servlet-class>com.book.servlet.user.StudentRegisterServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StudentRegisterServlet</servlet-name>
+		<url-pattern>/StudentRegisterServlet</url-pattern>
+	</servlet-mapping>
 	<servlet>
 		<description></description>
 		<display-name>BorrowServlet</display-name>
 		<servlet-name>BorrowServlet</servlet-name>
-		<servlet-class>com.book.servlet.BorrowServlet</servlet-class>
+		<servlet-class>com.book.servlet.borrow.BorrowServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>BorrowServlet</servlet-name>
@@ -60,11 +60,20 @@
 		<description></description>
 		<display-name>ManagerServlet</display-name>
 		<servlet-name>ManagerServlet</servlet-name>
-		<servlet-class>com.book.servlet.ManagerServlet</servlet-class>
+		<servlet-class>com.book.servlet.user.ManagerServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ManagerServlet</servlet-name>
 		<url-pattern>/ManagerServlet</url-pattern>
 	</servlet-mapping>
-
+	<servlet>
+		<description></description>
+		<display-name>UpdateBookServlet</display-name>
+		<servlet-name>UpdateBookServlet</servlet-name>
+		<servlet-class>com.book.servlet.book.UpdateBookServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdateBookServlet</servlet-name>
+		<url-pattern>/UpdateBookServlet</url-pattern>
+	</servlet-mapping>
 </web-app>

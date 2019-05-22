@@ -6,12 +6,25 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>主页</title>
 </head>
+	<link rel="stylesheet" href="./static/css/jHsDate.css" />
+	<style>
+			input {
+				height: 20px;
+				padding: 5px;
+				width: 200px;
+				border: 1px solid #3ab2d0;
+			}
+	</style>
 <body>
 	<%
 		String id = request.getParameter("id");
 		out.print("欢迎您！" + id);
 	%>
-	<table width="1000" border="1" cellpadding="0">
+	<div style="text-align: center;">
+		<input name="jHsDateInput" id="date" type="text">
+	</div>
+	<table width="1000" border="1" cellpadding="0"
+		style="text-align: center;">
 		<thead>
 			<tr>
 				<th>ISBN</th>
@@ -28,7 +41,9 @@
 		</tbody>
 	</table>
 	<script src="./static/js/jquery-3.2.1.js"></script>
+	<script type="text/javascript" src="./static/js/jHsDate.js"></script>
 	<script type="text/javascript">
+		$('#date').jHsDate();
 		$(function() {
 			$.ajax({
 				type : "POST",
@@ -47,7 +62,8 @@
 						rows += "<td>" + b.book_pub;
 						rows += "<td>" + b.book_price;
 						rows += "<td>" + b.book_record;
-						rows += "<td>" + "<a href="+ "" + ">借阅</a>";
+						rows += "<td>" + "<a href=" + 'javascript:borrow('
+								+ b.ISBN + ')' + ">借阅</a>";
 						rows += '<tr>';
 
 					});
@@ -55,6 +71,25 @@
 				}
 			});
 		});
+
+		//借阅操作
+		function borrow(id) {
+
+		}
 	</script>
+	<!--
+		$.ajax({
+			type : "POST",
+			url : "/books/UpdateBookServlet",
+			dataType : "json",
+			success : function(data) {
+				if (data.code == "000000") {
+					alert("借阅成功！");
+				} else {
+					alert("借阅失败！");
+				}
+			}
+		});
+		-->
 </body>
 </html>

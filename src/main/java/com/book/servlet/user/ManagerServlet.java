@@ -1,4 +1,4 @@
-package com.book.servlet;
+package com.book.servlet.user;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class BorrowServlet
+ * Servlet implementation class ManagerServlet
  */
-public class BorrowServlet extends HttpServlet {
+public class ManagerServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

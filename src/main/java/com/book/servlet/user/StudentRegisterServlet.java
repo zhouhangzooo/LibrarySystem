@@ -1,4 +1,4 @@
-package com.book.servlet;
+package com.book.servlet.user;
 
 import java.io.IOException;
 

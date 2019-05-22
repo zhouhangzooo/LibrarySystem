@@ -1,4 +1,4 @@
-package com.book.servlet;
+package com.book.servlet.book;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,7 +29,7 @@ public class BookServlet extends HttpServlet {
 		JSONObject json = new JSONObject();
 		json.put("data", books);
 		json.put("code", "000000");
-		json.put("message", "登录成功");
+		json.put("message", "请求成功");
 		response.getWriter().println(json);
 	}
 
