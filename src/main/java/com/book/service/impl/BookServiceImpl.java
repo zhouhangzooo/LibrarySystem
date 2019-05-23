@@ -32,8 +32,8 @@ public class BookServiceImpl implements IBookService {
 		return DaoFactory.getIBookDaoInstance().deleteByISBN(ISBN);
 	}
 
-	public boolean updateBookStatus(String ISBN) {
-		return DaoFactory.getIBookDaoInstance().updateBookStatus(ISBN);
+	public boolean updateBookStatus(String ISBN, String s_id, String borrow_date, String expect_return_date) {
+		return DaoFactory.getIBookDaoInstance().updateBookStatus(ISBN, s_id, borrow_date, expect_return_date);
 	}
 
 }

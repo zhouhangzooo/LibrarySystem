@@ -26,6 +26,7 @@ public class BorrowDaoImpl extends BaseDao implements IBorrowDao {
 				m.setPrice(rs.getBigDecimal("book_price"));
 				m.setReturn_date(rs.getString("return_date"));
 				m.setS_id(rs.getString("s_id"));
+				m.setBook_borrow(rs.getInt("book_borrow"));
 			}
 			return m;
 		} catch (Exception e) {
@@ -50,7 +51,8 @@ public class BorrowDaoImpl extends BaseDao implements IBorrowDao {
 				m.setPrice(rs.getBigDecimal("book_price"));
 				m.setReturn_date(rs.getString("return_date"));
 				m.setS_id(rs.getString("s_id"));
-
+				m.setBook_borrow(rs.getInt("book_borrow"));
+				
 				lists.add(m);
 			}
 			return lists;
@@ -61,9 +63,9 @@ public class BorrowDaoImpl extends BaseDao implements IBorrowDao {
 	}
 
 	public int insert(Borrow m) {
-		String sql = "insert into borrow (ISBN, s_id, price, book_name, borrow_date, expect_return_date, return_date) values (?,?,?,?,?,?,?)";
+		String sql = "insert into borrow (ISBN, s_id, price, book_name, borrow_date, expect_return_date, return_date, book_borrow) values (?,?,?,?,?,?,?,?)";
 		Object[] obj = { m.getISBN(), m.getS_id(), m.getPrice(), m.getBook_name(), m.getBorrow_date(),
-				m.getExpect_return_date(), m.getReturn_date() };
+				m.getExpect_return_date(), m.getReturn_date(), m.getBook_borrow() };
 		int lines = updateJDBC(sql, obj);
 		if (lines > 0) {
 			return 1;
@@ -72,9 +74,9 @@ public class BorrowDaoImpl extends BaseDao implements IBorrowDao {
 	}
 
 	public int update(Borrow m) {
-		String sql = "update borrow set ISBN = ?, s_id = ?, price = ?, book_name = ?, borrow_date = ?, expect_return_date = ?, return_date = ?";
+		String sql = "update borrow set ISBN = ?, s_id = ?, price = ?, book_name = ?, borrow_date = ?, expect_return_date = ?, return_date = ?, book_borrow = ?";
 		Object[] obj = { m.getISBN(), m.getS_id(), m.getPrice(), m.getBook_name(), m.getBorrow_date(),
-				m.getExpect_return_date(), m.getReturn_date() };
+				m.getExpect_return_date(), m.getReturn_date(), m.getBook_borrow() };
 		int lines = updateJDBC(sql, obj);
 		if (lines > 0) {
 			return 1;
@@ -99,7 +101,8 @@ public class BorrowDaoImpl extends BaseDao implements IBorrowDao {
 				m.setPrice(rs.getBigDecimal("book_price"));
 				m.setReturn_date(rs.getString("return_date"));
 				m.setS_id(rs.getString("s_id"));
-
+				m.setBook_borrow(rs.getInt("book_borrow"));
+				
 				lists.add(m);
 			}
 			return lists;

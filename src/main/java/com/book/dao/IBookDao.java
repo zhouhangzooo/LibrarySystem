@@ -24,6 +24,6 @@ public interface IBookDao {
 	
 	public int deleteByISBN(String ISBN);
 	
-	public boolean updateBookStatus(String ISBN);
+	public boolean updateBookStatus(String ISBN, String s_id, String borrow_date, String expect_return_date);
 
 }

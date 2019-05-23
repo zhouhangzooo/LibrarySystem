@@ -13,6 +13,7 @@ public class Borrow {
 	private String borrow_date;
 	private String expect_return_date;
 	private String return_date;
+	private int book_borrow;
 
 	public int getId() {
 		return id;
@@ -76,6 +77,14 @@ public class Borrow {
 
 	public void setReturn_date(String return_date) {
 		this.return_date = return_date;
+	}
+
+	public int getBook_borrow() {
+		return book_borrow;
+	}
+
+	public void setBook_borrow(int book_borrow) {
+		this.book_borrow = book_borrow;
 	}
 
 }

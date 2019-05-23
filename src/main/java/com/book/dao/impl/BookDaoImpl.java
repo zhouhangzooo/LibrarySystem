@@ -9,6 +9,7 @@ import com.book.dao.BaseDao;
 import com.book.dao.DaoFactory;
 import com.book.dao.IBookDao;
 import com.book.entity.Book;
+import com.book.entity.Borrow;
 import com.book.util.DateUtils;
 import com.mysql.cj.util.Util;
 
@@ -102,7 +103,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 				m.setBook_pub(rs.getString("book_pub"));
 				m.setBook_record(rs.getString("book_record"));
 				m.setSort_id(rs.getInt("sort_id"));
-				
+
 				lists.add(m);
 			}
 			return lists;
@@ -122,8 +123,20 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 		return 0;
 	}
 
-	//借阅操作，修改book的book_borrow的值，0为可借阅，1为已借阅，另外在借阅表添加借阅书籍的数据
-	public boolean updateBookStatus(String ISBN) {
+	/**
+	 * 借阅操作，修改book的book_borrow的值，0为可借阅，1为已借阅，另外在借阅表添加借阅书籍的数据
+	 * 
+	 * @param ISBN
+	 *            书唯一编号
+	 * @param s_id
+	 *            借阅人编号
+	 * @param borrow_date
+	 *            借阅日期（一般为当天）
+	 * @param expect_return_date
+	 *            归还日期
+	 * @return
+	 */
+	public boolean updateBookStatus(String ISBN, String s_id, String borrow_date, String expect_return_date) {
 		Book m = new Book();
 		String sql = "select * from book where ISBN = ?";
 		Object[] obj = { ISBN };
@@ -133,8 +146,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 				m.setISBN(rs.getString("iSBN"));
 				m.setBook_author(rs.getString("book_author"));
 				m.setBook_name(rs.getString("book_name"));
-				if(rs.getInt("book_borrow")!= 0)
-				{
+				if (rs.getInt("book_borrow") != 0) {
 					return false;
 				}
 				m.setBook_borrow(1);
@@ -144,12 +156,25 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 				m.setSort_id(rs.getInt("sort_id"));
 			}
 			int result = update(m);
-			if(result == 0)
-			{
+			if (result == 0) {
 				return false;
 			}
-			//TODO 在借阅表中添加数据
-//			DaoFactory.getIBorrowDaoInstance().insert(borrow);
+
+			// 在借阅表中添加数据
+			Borrow borrow = new Borrow();
+			borrow.setBook_borrow(m.getBook_borrow());
+			borrow.setBook_name(m.getBook_name());
+			borrow.setBorrow_date(borrow_date);
+			borrow.setExpect_return_date(expect_return_date); // 预计归还日期由用户设置
+			borrow.setISBN(m.getISBN());
+			borrow.setPrice(m.getBook_price());
+			borrow.setReturn_date(null); // 当归还时才设置日期
+			borrow.setS_id(s_id);
+
+			result = DaoFactory.getIBorrowDaoInstance().insert(borrow);
+			if (result == 0) {
+				return false;
+			}
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

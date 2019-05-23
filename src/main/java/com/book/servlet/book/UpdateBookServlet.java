@@ -22,6 +22,9 @@ public class UpdateBookServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String ISBN = request.getParameter("ISBN");
+		String s_id = request.getParameter("id");
+		String borrow_date = request.getParameter("borrow_date");
+		String expect_return_date = request.getParameter("expect_return_date");
 		JSONObject json = new JSONObject();
 		if(!StringUtils.validateEmpty(ISBN))
 		{
@@ -30,7 +33,7 @@ public class UpdateBookServlet extends HttpServlet {
 			response.getWriter().println(json);
 			return;
 		}
-		boolean result = ServiceFactory.getIBookServiceInstance().updateBookStatus(ISBN);
+		boolean result = ServiceFactory.getIBookServiceInstance().updateBookStatus(ISBN, s_id, borrow_date, expect_return_date);
 		if(result)
 		{
 			json.put("code", "000000");
