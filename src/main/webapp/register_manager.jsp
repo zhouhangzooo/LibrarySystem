@@ -4,18 +4,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>注册页面</title>
+<title>管理员注册页面</title>
 </head>
 <body>
 	<script src="./static/js/jquery-3.2.1.js"></script>
-	<h4>学生注册页面</h4>
+	<h4>管理员注册页面</h4>
 	<form>
-		学号：<input id="id" maxlength="18"><br> 姓名：<input id="name"
-			maxlength="5"><br> 密码：<input id="password"
-			type="password" maxlength="18"><br> 性别：<input id="sex"
-			maxlength="2"><br> 年龄：<input id="age" maxlength="3"><br>
-		专业：<input id="profession" maxlength="15"><br> 年级：<input
-			id="grade" maxlength="15"><br>
+		工作号：<input id="id" maxlength="18"><br> 姓名：<input
+			id="name" maxlength="5"><br> 密码：<input id="password"
+			type="password" maxlength="18"><br> 年龄：<input id="age"
+			maxlength="3"><br> 电话：<input id="phone" maxlength="11"><br>
 	</form>
 
 	<button id="registerButton" type="submit" style="margin-top: 20px">注册</button>
@@ -28,34 +26,32 @@
 			var password = $("#password").val();
 			var name = $("#name").val();
 			var age = $("#age").val();
-			var sex = $("#sex").val();
-			var grade = $("#grade").val();
-			var profession = $("#profession").val();
+			var phone = $("#phone").val();
 			if (id == '') {
-				$("#info").text("提示:学生ID不能为空");
+				$("#info").text("提示:工作号不能为空");
 			} else if (name == '') {
 				$("#info").text("提示:姓名不能为空");
 			} else if (password == '') {
 				$("#info").text("提示:密码不能为空");
+			} else if (phone == '') {
+				$("#info").text("提示:电话不能为空");
 			} else {
 				$.ajax({
 					type : "POST",
-					url : "/books/StudentRegisterServlet",
+					url : "/books/ManagerRegisterServlet",
 					data : {
 						id : id,
 						password : password,
 						name : name,
 						age : age,
-						sex : sex,
-						grade : grade,
-						profession : profession
+						phone : phone
 					},
 					dataType : "json",
 					success : function(data) {
 						if (data.code == "000000") {
 							$("#info").text("提示:注册成功");
 							setTimeout(function() {
-								window.location.href = "login.jsp"
+								window.location.href = "login_manager.jsp"
 							}, 1000);
 						} else {
 							$("#info").text(data.message);

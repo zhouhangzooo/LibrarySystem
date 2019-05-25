@@ -27,7 +27,7 @@ CREATE TABLE `manager` (
   `id` varchar(20) NOT NULL,
   `name` varchar(12) NOT NULL,
   `password` varchar(20) NOT NULL,
-  `age` char(4) NOT NULL,
+  `age` int,
   `phone` char(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

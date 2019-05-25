@@ -58,13 +58,23 @@
 	</servlet-mapping>
 	<servlet>
 		<description></description>
-		<display-name>ManagerServlet</display-name>
-		<servlet-name>ManagerServlet</servlet-name>
-		<servlet-class>com.book.servlet.user.ManagerServlet</servlet-class>
+		<display-name>ManagerLoginServlet</display-name>
+		<servlet-name>ManagerLoginServlet</servlet-name>
+		<servlet-class>com.book.servlet.user.ManagerLoginServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>ManagerServlet</servlet-name>
-		<url-pattern>/ManagerServlet</url-pattern>
+		<servlet-name>ManagerLoginServlet</servlet-name>
+		<url-pattern>/ManagerLoginServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>ManagerRegisterServlet</display-name>
+		<servlet-name>ManagerRegisterServlet</servlet-name>
+		<servlet-class>com.book.servlet.user.ManagerRegisterServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ManagerRegisterServlet</servlet-name>
+		<url-pattern>/ManagerRegisterServlet</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<description></description>

@@ -13,7 +13,7 @@ import com.book.util.StringUtils;
 import cn.hutool.json.JSONObject;
 
 /**
- * Servlet implementation class UpdateBookServlet
+ * 借阅图书
  */
 public class UpdateBookServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

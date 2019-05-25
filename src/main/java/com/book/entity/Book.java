@@ -13,6 +13,7 @@ public class Book {
 	private int sort_id;
 	private String book_record;
 	private BigDecimal book_price;
+	private String sort_name;
 
 	public String getISBN() {
 		return ISBN;
@@ -76,6 +77,14 @@ public class Book {
 
 	public void setBook_price(BigDecimal book_price) {
 		this.book_price = book_price;
+	}
+	
+	public String getSort_name() {
+		return sort_name;
+	}
+
+	public void setSort_name(String sort_name) {
+		this.sort_name = sort_name;
 	}
 
 }

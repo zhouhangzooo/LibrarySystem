@@ -9,10 +9,15 @@
 <body>
 	<%
 		String id = request.getParameter("id");
-		out.print("欢迎您！" + id);
 	%>
-	<table width="1000" border="1" cellpadding="0"
-		style="text-align: center;">
+	<div style="display: flex">
+		<h3>欢迎您：<%= id %></h3>
+		<button id="queryBook" type="submit" style="margin-left: 50px;">查询图书</button>
+		<button id="myBook" type="submit" style="margin-left: 20px;">我的借阅</button>
+	</div>
+	
+	<table frame=hsides width="1000" border rules=none cellspacing=0 cellpadding="5"
+		style="text-align: center;margin-top: 10px">
 		<thead>
 			<tr>
 				<th>ISBN</th>
@@ -22,7 +27,8 @@
 				<th>出版社</th>
 				<th>价格</th>
 				<th>收录时间</th>
-				<th>归还日期</th>
+				<th>借阅状态</th>
+				<th>预计归还日期</th>
 				<th>操作</th>
 			</tr>
 		</thead>
@@ -39,18 +45,28 @@
 				success : function(data) {
 					var datas = data.data;
 					var rows = "";
-
 					$.each(datas, function(i, b) {
+						var borrow = b.book_borrow;
+						if(borrow == 0)
+						{
+							borrow = "可借阅";
+						}else if(borrow == 1)
+						{
+							borrow = "已借阅";
+						}else {
+							borrow = "未知状态";
+						}
 						rows += '<tr>';
 						rows += "<td>" + b.ISBN;
 						rows += "<td>" + b.book_name;
 						rows += "<td>" + b.book_author;
-						rows += "<td>" + b.sort_id;
+						rows += "<td>" + b.sort_name;
 						rows += "<td>" + b.book_pub;
 						rows += "<td>" + b.book_price;
 						rows += "<td>" + b.book_record;
+						rows += "<td>" + borrow;
 						rows += "<td>" + "<input type ='date' id='myDate" + i + "'" + " style='text-align:center;'>";
-						rows += "<td>" + "<a href=" + 'javascript:borrow(' + b.ISBN + ',' + i + ')' + ">借阅</a>";
+						rows += "<td>" + "<a href=" + 'javascript:borrow(' + b.ISBN + ',' + i + ',' + b.book_borrow + ')' + ">借阅</a>";
 						rows += '<tr>';
 					});
 					console.log(rows);
@@ -60,7 +76,11 @@
 		});
 
 		//借阅操作
-		function borrow(ISBN,i) {
+		function borrow(ISBN,i,borrow) {
+			if(borrow != 0)
+			{
+				return alert("该图书已经被借阅啦！");
+			}
 			var valueDate = $("#myDate" + i).val();
 			if(valueDate === ""){
 				return alert("请输入归还日期");

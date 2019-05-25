@@ -7,13 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.book.entity.Student;
+import com.book.entity.Manager;
 import com.book.service.ServiceFactory;
 import com.book.util.StringUtils;
 
 import cn.hutool.json.JSONObject;
 
-public class StudentRegisterServlet extends HttpServlet {
+public class ManagerRegisterServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -26,27 +26,23 @@ public class StudentRegisterServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		String s_age = request.getParameter("age");
-		String sex = request.getParameter("sex");
-		String grade = request.getParameter("grade");
-		String profession = request.getParameter("profession");
+		String phone = request.getParameter("phone");
 
 		JSONObject json = new JSONObject();
 
-		if (StringUtils.validateEmpty(id) && StringUtils.validateEmpty(password) && StringUtils.validateEmpty(name)) {
-			Student stu = new Student();
+		if (StringUtils.validateEmpty(id) && StringUtils.validateEmpty(password) && StringUtils.validateEmpty(name)
+				&& StringUtils.validateEmpty(phone)) {
+			Manager m = new Manager();
 
 			if (StringUtils.validateEmpty(s_age)) {
 				Integer age = Integer.parseInt(s_age);
-				stu.setAge(age);
+				m.setAge(age);
 			}
-			stu.setGrade(grade);
-			stu.setId(id);
-			stu.setName(name);
-			stu.setPassword(password);
-			stu.setSex(sex);
-			stu.setProfession(profession);
-			int result = ServiceFactory.getIStudentServiceInstance().insert(stu);
-
+			m.setId(id);
+			m.setName(name);
+			m.setPassword(password);
+			m.setPhone(phone);
+			int result = ServiceFactory.getIManagerServiceInstance().insert(m);
 			if (result == -1) {
 				json.put("code", "222222");
 				json.put("message", "用户已存在");
@@ -60,7 +56,7 @@ public class StudentRegisterServlet extends HttpServlet {
 			response.getWriter().println(json);
 		} else {
 			json.put("code", "111111");
-			json.put("message", "请输入学生ID号、姓名和密码！");
+			json.put("message", "请输入工作号、姓名、密码和电话！");
 			response.getWriter().println(json);
 		}
 	}

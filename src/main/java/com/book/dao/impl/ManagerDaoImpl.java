@@ -11,6 +11,21 @@ import com.book.entity.Manager;
 
 public class ManagerDaoImpl extends BaseDao implements IManagerDao {
 
+	public boolean login(String id, String password) {
+		String sql = "select `id`, `password` from manager where `id` = ? and `password` = ?";
+		Object[] obj = { id, password };
+		ResultSet rs = selectJDBC(sql, obj);
+		try {
+			if (rs.next()) {
+				return true;
+			}
+			return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 	public Manager selectById(String id) {
 		Manager m = new Manager();
 		String sql = "select * from manager where id = ?";
@@ -30,8 +45,29 @@ public class ManagerDaoImpl extends BaseDao implements IManagerDao {
 			return null;
 		}
 	}
+	
+	public boolean checkIsExist(String id) {
+		String sql = "select id from manager where id = ?";
+		Object[] obj = { id };
+		ResultSet rs = selectJDBC(sql, obj);
+		try {
+			if(rs.next()){
+				return true;
+			}else {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 	public int insert(Manager m) {
+		boolean result = checkIsExist(m.getId());
+		if(result)
+		{
+			return -1;
+		}
 		String sql = "insert into manager (id, name, password, age, phone) values (?,?,?,?,?)";
 		Object[] obj = { m.getId(), m.getName(), m.getPassword(), m.getAge(), m.getPhone() };
 		int lines = updateJDBC(sql, obj);

@@ -8,6 +8,11 @@ import com.book.service.IManagerService;
 
 public class ManagerServiceImpl implements IManagerService {
 
+	public boolean login(String id, String password) {
+		boolean result = DaoFactory.getIManagerDaoInstance().login(id, password);
+		return result;
+	}
+
 	public Manager selectById(String id) {
 		Manager manager = DaoFactory.getIManagerDaoInstance().selectById(id);
 		return manager;

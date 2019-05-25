@@ -11,6 +11,8 @@ import com.book.entity.Manager;
  * @date 2019/05/14
  */
 public interface IManagerService {
+	
+	public boolean login(String id,String password);
 
 	public Manager selectById(String id);
 

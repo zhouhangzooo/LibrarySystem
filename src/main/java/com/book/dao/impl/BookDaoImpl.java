@@ -13,6 +13,8 @@ import com.book.entity.Borrow;
 import com.book.util.DateUtils;
 import com.mysql.cj.util.Util;
 
+import cn.hutool.core.lang.Console;
+
 public class BookDaoImpl extends BaseDao implements IBookDao {
 
 	public Book selectByISBN(String ISBN) {
@@ -76,9 +78,9 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 	}
 
 	public int update(Book m) {
-		String sql = "update book set ISBN = ?, book_name = ?, book_author = ?, book_pub = ?, book_borrow = ?, sort_id = ?, book_record = ?, book_price = ?";
-		Object[] obj = { m.getISBN(), m.getBook_name(), m.getBook_author(), m.getBook_pub(), m.getBook_borrow(),
-				m.getSort_id(), m.getBook_record(), m.getBook_price() };
+		String sql = "update book set book_name = ?, book_author = ?, book_pub = ?, book_borrow = ?, sort_id = ?, book_record = ?, book_price = ? where ISBN = ?";
+		Object[] obj = { m.getBook_name(), m.getBook_author(), m.getBook_pub(), m.getBook_borrow(), m.getSort_id(),
+				m.getBook_record(), m.getBook_price(), m.getISBN() };
 		int lines = updateJDBC(sql, obj);
 		if (lines > 0) {
 			return 1;
@@ -88,7 +90,9 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 
 	public List<Book> selectList() {
 		List<Book> lists = new ArrayList<Book>();
-		String sql = "select * from book";
+		//String sql = "select * from book";
+		//左外连接查询
+		String sql = "SELECT * FROM book a LEFT OUTER JOIN book_sort b ON a.`sort_id` = b.`sort_id`";
 		Object[] obj = {};
 		ResultSet rs = selectJDBC(sql, obj);
 		try {
@@ -103,7 +107,8 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 				m.setBook_pub(rs.getString("book_pub"));
 				m.setBook_record(rs.getString("book_record"));
 				m.setSort_id(rs.getInt("sort_id"));
-
+				m.setSort_name(rs.getString("sort_name"));
+				
 				lists.add(m);
 			}
 			return lists;
@@ -157,6 +162,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 			}
 			int result = update(m);
 			if (result == 0) {
+				System.out.println("==图书更新状态失败");
 				return false;
 			}
 
@@ -173,6 +179,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 
 			result = DaoFactory.getIBorrowDaoInstance().insert(borrow);
 			if (result == 0) {
+				System.out.println("==借阅插入数据失败");
 				return false;
 			}
 			return true;

@@ -49,8 +49,29 @@ public class StudentDaoImpl extends BaseDao implements IStudentDao {
 			return null;
 		}
 	}
+	
+	public boolean checkIsExist(String id) {
+		String sql = "select s_id from student where s_id = ?";
+		Object[] obj = { id };
+		ResultSet rs = selectJDBC(sql, obj);
+		try {
+			if(rs.next()){
+				return true;
+			}else {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 	public int insert(Student stu) {
+		boolean result = checkIsExist(stu.getId());
+		if(result)
+		{
+			return -1;
+		}
 		String sql = "insert into student (s_id, name, password, age, profession, grade, sex) values (?,?,?,?,?,?,?)";
 		Object[] obj = { stu.getId(), stu.getName(), stu.getPassword(), stu.getAge(), stu.getProfession(),
 				stu.getGrade(), stu.getSex() };

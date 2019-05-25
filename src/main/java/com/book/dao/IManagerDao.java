@@ -12,6 +12,8 @@ import com.book.entity.Manager;
  */
 public interface IManagerDao {
 
+	public boolean login(String id, String password);
+
 	public Manager selectById(String id);
 
 	public int insert(Manager manager);

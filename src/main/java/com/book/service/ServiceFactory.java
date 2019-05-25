@@ -12,7 +12,7 @@ public class ServiceFactory {
 	private static IBookService m_book;
 	private static IManagerService m_manager;
 
-	public static IStudentService getStudentServiceInstance() {
+	public static IStudentService getIStudentServiceInstance() {
 		if (m_stu == null) {
 			m_stu = new StudentServiceImpl();
 		}
