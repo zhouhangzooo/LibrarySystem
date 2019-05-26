@@ -10,10 +10,10 @@
 	<script src="./static/js/jquery-3.2.1.js"></script>
 	<h4>管理员注册页面</h4>
 	<form>
-		工作号：<input id="id" maxlength="18"><br> 姓名：<input
-			id="name" maxlength="5"><br> 密码：<input id="password"
-			type="password" maxlength="18"><br> 年龄：<input id="age"
-			maxlength="3"><br> 电话：<input id="phone" maxlength="11"><br>
+		工作号：<input id="id" maxlength="18"><br> 姓名：&#12288;<input
+			id="name" maxlength="5"><br> 密码：&#12288;<input id="password"
+			type="password" maxlength="18"><br> 年龄：&#12288;<input id="age"
+			maxlength="3"><br> 电话：&#12288;<input id="phone" maxlength="11"><br>
 	</form>
 
 	<button id="registerButton" type="submit" style="margin-top: 20px">注册</button>

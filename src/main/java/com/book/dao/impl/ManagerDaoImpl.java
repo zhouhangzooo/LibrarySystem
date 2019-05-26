@@ -78,8 +78,8 @@ public class ManagerDaoImpl extends BaseDao implements IManagerDao {
 	}
 
 	public int update(Manager m) {
-		String sql = "update manager set id = ?, name = ?, password = ?, age = ?, phone = ?";
-		Object[] obj = { m.getId(), m.getName(), m.getPassword(), m.getAge(), m.getPhone() };
+		String sql = "update manager set name = ?, password = ?, age = ?, phone = ? where id = ? ";
+		Object[] obj = { m.getName(), m.getPassword(), m.getAge(), m.getPhone(), m.getId() };
 		int lines = updateJDBC(sql, obj);
 		if (lines > 0) {
 			return 1;

@@ -49,15 +49,15 @@ public class StudentDaoImpl extends BaseDao implements IStudentDao {
 			return null;
 		}
 	}
-	
+
 	public boolean checkIsExist(String id) {
 		String sql = "select s_id from student where s_id = ?";
 		Object[] obj = { id };
 		ResultSet rs = selectJDBC(sql, obj);
 		try {
-			if(rs.next()){
+			if (rs.next()) {
 				return true;
-			}else {
+			} else {
 				return false;
 			}
 		} catch (Exception e) {
@@ -68,8 +68,7 @@ public class StudentDaoImpl extends BaseDao implements IStudentDao {
 
 	public int insert(Student stu) {
 		boolean result = checkIsExist(stu.getId());
-		if(result)
-		{
+		if (result) {
 			return -1;
 		}
 		String sql = "insert into student (s_id, name, password, age, profession, grade, sex) values (?,?,?,?,?,?,?)";
@@ -83,9 +82,9 @@ public class StudentDaoImpl extends BaseDao implements IStudentDao {
 	}
 
 	public int update(Student stu) {
-		String sql = "update student set s_id = ?, name = ?, password = ?, age = ?, profession = ?, grade = ?, sex = ?";
-		Object[] obj = { stu.getId(), stu.getName(), stu.getPassword(), stu.getAge(), stu.getProfession(),
-				stu.getGrade(), stu.getSex() };
+		String sql = "update student set name = ?, password = ?, age = ?, profession = ?, grade = ?, sex = ?  where s_id = ? ";
+		Object[] obj = { stu.getName(), stu.getPassword(), stu.getAge(), stu.getProfession(), stu.getGrade(),
+				stu.getSex(), stu.getId() };
 		int lines = updateJDBC(sql, obj);
 		if (lines > 0) {
 			return 1;

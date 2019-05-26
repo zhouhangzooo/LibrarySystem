@@ -1,6 +1,7 @@
 package com.book.service;
 
 import com.book.service.impl.BookServiceImpl;
+import com.book.service.impl.BookSortServiceImpl;
 import com.book.service.impl.BorrowServiceImpl;
 import com.book.service.impl.ManagerServiceImpl;
 import com.book.service.impl.StudentServiceImpl;
@@ -11,6 +12,7 @@ public class ServiceFactory {
 	private static IBorrowService m_borrow;
 	private static IBookService m_book;
 	private static IManagerService m_manager;
+	private static IBookSortService m_bookSort;
 
 	public static IStudentService getIStudentServiceInstance() {
 		if (m_stu == null) {
@@ -39,4 +41,12 @@ public class ServiceFactory {
 		}
 		return m_manager;
 	}
+
+	public static IBookSortService getIBookSortServiceInstance() {
+		if (m_bookSort == null) {
+			m_bookSort = new BookSortServiceImpl();
+		}
+		return m_bookSort;
+	}
+
 }

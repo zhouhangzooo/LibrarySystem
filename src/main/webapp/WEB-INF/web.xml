@@ -86,4 +86,24 @@
 		<servlet-name>UpdateBookServlet</servlet-name>
 		<url-pattern>/UpdateBookServlet</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>BookSortServlet</display-name>
+		<servlet-name>BookSortServlet</servlet-name>
+		<servlet-class>com.book.servlet.booksort.BookSortServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BookSortServlet</servlet-name>
+		<url-pattern>/BookSortServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>addBookServlet</display-name>
+		<servlet-name>addBookServlet</servlet-name>
+		<servlet-class>com.book.servlet.book.addBookServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>addBookServlet</servlet-name>
+		<url-pattern>/addBookServlet</url-pattern>
+	</servlet-mapping>
 </web-app>

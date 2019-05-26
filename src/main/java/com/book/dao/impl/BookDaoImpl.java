@@ -65,8 +65,28 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 			return null;
 		}
 	}
+	
+	public boolean checkIsExist(String id) {
+		String sql = "select ISBN from book where ISBN = ?";
+		Object[] obj = { id };
+		ResultSet rs = selectJDBC(sql, obj);
+		try {
+			if (rs.next()) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 	public int insert(Book m) {
+		boolean result = checkIsExist(m.getISBN());
+		if (result) {
+			return -1;
+		}
 		String sql = "insert into book (ISBN, book_name, book_author, book_pub, book_borrow, sort_id, book_record, book_price) values (?,?,?,?,?,?,?,?)";
 		Object[] obj = { m.getISBN(), m.getBook_name(), m.getBook_author(), m.getBook_pub(), m.getBook_borrow(),
 				m.getSort_id(), m.getBook_record(), m.getBook_price() };

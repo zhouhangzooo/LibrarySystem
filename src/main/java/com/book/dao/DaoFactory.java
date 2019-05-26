@@ -1,6 +1,7 @@
 package com.book.dao;
 
 import com.book.dao.impl.BookDaoImpl;
+import com.book.dao.impl.BookSortDaoImpl;
 import com.book.dao.impl.BorrowDaoImpl;
 import com.book.dao.impl.ManagerDaoImpl;
 import com.book.dao.impl.StudentDaoImpl;
@@ -11,6 +12,7 @@ public class DaoFactory {
 	private static IBorrowDao m_borrow;
 	private static IBookDao m_book;
 	private static IManagerDao m_manager;
+	private static IBookSortDao m_bookSort;
 
 	public static IStudentDao getIStudentDaoInstance() {
 		if (m_stu == null) {
@@ -38,5 +40,12 @@ public class DaoFactory {
 			m_manager = new ManagerDaoImpl();
 		}
 		return m_manager;
+	}
+
+	public static IBookSortDao getIBookSortDaoInstance() {
+		if (m_bookSort == null) {
+			m_bookSort = new BookSortDaoImpl();
+		}
+		return m_bookSort;
 	}
 }

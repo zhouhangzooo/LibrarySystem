@@ -13,7 +13,7 @@
 
 	<div>
 		<form>
-			工作号：<input id="id" name="id" maxlength="18"><br> 密码：<input
+			工作号：<input id="id" name="id" maxlength="18"><br> 密码：&#12288;<input
 				id="password" name="password" type="password" maxlength="18"><br>
 		</form>
 
