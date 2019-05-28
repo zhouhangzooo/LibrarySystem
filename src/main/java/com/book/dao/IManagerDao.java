@@ -18,7 +18,7 @@ public interface IManagerDao {
 
 	public int insert(Manager manager);
 
-	public int update(Manager manager);
+	public int update(Manager manager, String id);
 
 	public List<Manager> selectList();
 

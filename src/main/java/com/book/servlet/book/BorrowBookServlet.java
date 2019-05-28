@@ -15,7 +15,7 @@ import cn.hutool.json.JSONObject;
 /**
  * 借阅图书
  */
-public class UpdateBookServlet extends HttpServlet {
+public class BorrowBookServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}

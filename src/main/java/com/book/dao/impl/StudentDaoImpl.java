@@ -23,6 +23,8 @@ public class StudentDaoImpl extends BaseDao implements IStudentDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			closeJDBC();
 		}
 	}
 
@@ -47,6 +49,8 @@ public class StudentDaoImpl extends BaseDao implements IStudentDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			closeJDBC();
 		}
 	}
 
@@ -63,6 +67,8 @@ public class StudentDaoImpl extends BaseDao implements IStudentDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			closeJDBC();
 		}
 	}
 
@@ -76,19 +82,23 @@ public class StudentDaoImpl extends BaseDao implements IStudentDao {
 				stu.getGrade(), stu.getSex() };
 		int lines = updateJDBC(sql, obj);
 		if (lines > 0) {
+			closeJDBC();
 			return 1;
 		}
+		closeJDBC();
 		return 0;
 	}
 
-	public int update(Student stu) {
-		String sql = "update student set name = ?, password = ?, age = ?, profession = ?, grade = ?, sex = ?  where s_id = ? ";
+	public int update(Student stu, String s_id) {
+		String sql = "update student set s_id = ?, name = ?, password = ?, age = ?, profession = ?, grade = ?, sex = ?  where s_id = ? ";
 		Object[] obj = { stu.getName(), stu.getPassword(), stu.getAge(), stu.getProfession(), stu.getGrade(),
-				stu.getSex(), stu.getId() };
+				stu.getSex(), s_id };
 		int lines = updateJDBC(sql, obj);
 		if (lines > 0) {
+			closeJDBC();
 			return 1;
 		}
+		closeJDBC();
 		return 0;
 	}
 
@@ -117,6 +127,8 @@ public class StudentDaoImpl extends BaseDao implements IStudentDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			closeJDBC();
 		}
 	}
 
@@ -125,8 +137,10 @@ public class StudentDaoImpl extends BaseDao implements IStudentDao {
 		Object[] obj = { id };
 		int lines = updateJDBC(sql, obj);
 		if (lines > 0) {
+			closeJDBC();
 			return 1;
 		}
+		closeJDBC();
 		return 0;
 	}
 

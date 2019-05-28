@@ -20,8 +20,8 @@ public class BookServiceImpl implements IBookService {
 		return DaoFactory.getIBookDaoInstance().insert(book);
 	}
 
-	public int update(Book book) {
-		return 0;
+	public int update(Book book, String ISBN) {
+		return DaoFactory.getIBookDaoInstance().update(book, ISBN);
 	}
 
 	public List<Book> selectList() {

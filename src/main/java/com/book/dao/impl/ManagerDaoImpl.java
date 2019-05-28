@@ -23,6 +23,8 @@ public class ManagerDaoImpl extends BaseDao implements IManagerDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			closeJDBC();
 		}
 	}
 
@@ -43,29 +45,32 @@ public class ManagerDaoImpl extends BaseDao implements IManagerDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			closeJDBC();
 		}
 	}
-	
+
 	public boolean checkIsExist(String id) {
 		String sql = "select id from manager where id = ?";
 		Object[] obj = { id };
 		ResultSet rs = selectJDBC(sql, obj);
 		try {
-			if(rs.next()){
+			if (rs.next()) {
 				return true;
-			}else {
+			} else {
 				return false;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			closeJDBC();
 		}
 	}
 
 	public int insert(Manager m) {
 		boolean result = checkIsExist(m.getId());
-		if(result)
-		{
+		if (result) {
 			return -1;
 		}
 		String sql = "insert into manager (id, name, password, age, phone) values (?,?,?,?,?)";
@@ -77,9 +82,9 @@ public class ManagerDaoImpl extends BaseDao implements IManagerDao {
 		return 0;
 	}
 
-	public int update(Manager m) {
-		String sql = "update manager set name = ?, password = ?, age = ?, phone = ? where id = ? ";
-		Object[] obj = { m.getName(), m.getPassword(), m.getAge(), m.getPhone(), m.getId() };
+	public int update(Manager m, String id) {
+		String sql = "update manager set id = ?, name = ?, password = ?, age = ?, phone = ? where id = ? ";
+		Object[] obj = { m.getId(), m.getName(), m.getPassword(), m.getAge(), m.getPhone(), id };
 		int lines = updateJDBC(sql, obj);
 		if (lines > 0) {
 			return 1;
@@ -108,6 +113,8 @@ public class ManagerDaoImpl extends BaseDao implements IManagerDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			closeJDBC();
 		}
 	}
 

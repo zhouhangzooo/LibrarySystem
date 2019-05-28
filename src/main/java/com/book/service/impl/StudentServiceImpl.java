@@ -23,8 +23,8 @@ public class StudentServiceImpl implements IStudentService {
 		return result;
 	}
 
-	public int update(Student stu) {
-		int result = DaoFactory.getIStudentDaoInstance().update(stu);
+	public int update(Student stu, String s_id) {
+		int result = DaoFactory.getIStudentDaoInstance().update(stu, s_id);
 		return result;
 	}
 

@@ -18,7 +18,7 @@ public interface IBookService {
 
 	public int insert(Book book);
 
-	public int update(Book book);
+	public int update(Book book, String ISBN);
 
 	public List<Book> selectList();
 

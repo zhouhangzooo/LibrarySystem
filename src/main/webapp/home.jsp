@@ -92,7 +92,7 @@
 			var borrow_date = curDate.getFullYear() + '-' + (curDate.getMonth() + 1) + '-' + curDate.getDate();
 			$.ajax({
 				type : "POST",
-				url : "/books/UpdateBookServlet",
+				url : "/books/BorrowBookServlet",
 				data : {
 					ISBN : ISBN,
 					id : <%= id %>,

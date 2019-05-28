@@ -58,6 +58,26 @@
 	</servlet-mapping>
 	<servlet>
 		<description></description>
+		<display-name>QueryBorrowByISBNServlet</display-name>
+		<servlet-name>QueryBorrowByISBNServlet</servlet-name>
+		<servlet-class>com.book.servlet.borrow.QueryBorrowByISBNServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>QueryBorrowByISBNServlet</servlet-name>
+		<url-pattern>/QueryBorrowByISBNServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>QueryBorrowByIdServlet</display-name>
+		<servlet-name>QueryBorrowByIdServlet</servlet-name>
+		<servlet-class>com.book.servlet.borrow.QueryBorrowByIdServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>QueryBorrowByIdServlet</servlet-name>
+		<url-pattern>/QueryBorrowByIdServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
 		<display-name>ManagerLoginServlet</display-name>
 		<servlet-name>ManagerLoginServlet</servlet-name>
 		<servlet-class>com.book.servlet.user.ManagerLoginServlet</servlet-class>
@@ -78,13 +98,13 @@
 	</servlet-mapping>
 	<servlet>
 		<description></description>
-		<display-name>UpdateBookServlet</display-name>
-		<servlet-name>UpdateBookServlet</servlet-name>
-		<servlet-class>com.book.servlet.book.UpdateBookServlet</servlet-class>
+		<display-name>BorrowBookServlet</display-name>
+		<servlet-name>BorrowBookServlet</servlet-name>
+		<servlet-class>com.book.servlet.book.BorrowBookServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>UpdateBookServlet</servlet-name>
-		<url-pattern>/UpdateBookServlet</url-pattern>
+		<servlet-name>BorrowBookServlet</servlet-name>
+		<url-pattern>/BorrowBookServlet</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<description></description>
@@ -98,12 +118,52 @@
 	</servlet-mapping>
 	<servlet>
 		<description></description>
-		<display-name>addBookServlet</display-name>
-		<servlet-name>addBookServlet</servlet-name>
-		<servlet-class>com.book.servlet.book.addBookServlet</servlet-class>
+		<display-name>AddBookServlet</display-name>
+		<servlet-name>AddBookServlet</servlet-name>
+		<servlet-class>com.book.servlet.book.AddBookServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>addBookServlet</servlet-name>
-		<url-pattern>/addBookServlet</url-pattern>
+		<servlet-name>AddBookServlet</servlet-name>
+		<url-pattern>/AddBookServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>EditBookServlet</display-name>
+		<servlet-name>EditBookServlet</servlet-name>
+		<servlet-class>com.book.servlet.book.EditBookServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EditBookServlet</servlet-name>
+		<url-pattern>/EditBookServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>DeleteBookServlet</display-name>
+		<servlet-name>DeleteBookServlet</servlet-name>
+		<servlet-class>com.book.servlet.book.DeleteBookServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteBookServlet</servlet-name>
+		<url-pattern>/DeleteBookServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>QueryBookByISBNServlet</display-name>
+		<servlet-name>QueryBookByISBNServlet</servlet-name>
+		<servlet-class>com.book.servlet.book.QueryBookByISBNServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>QueryBookByISBNServlet</servlet-name>
+		<url-pattern>/QueryBookByISBNServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>QueryBookByNameServlet</display-name>
+		<servlet-name>QueryBookByNameServlet</servlet-name>
+		<servlet-class>com.book.servlet.book.QueryBookByNameServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>QueryBookByNameServlet</servlet-name>
+		<url-pattern>/QueryBookByNameServlet</url-pattern>
 	</servlet-mapping>
 </web-app>

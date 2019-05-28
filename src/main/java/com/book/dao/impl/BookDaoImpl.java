@@ -19,7 +19,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 
 	public Book selectByISBN(String ISBN) {
 		Book m = new Book();
-		String sql = "select * from book where ISBN = ?";
+		String sql = "select * from book a LEFT OUTER JOIN book_sort b ON a.`sort_id` = b.`sort_id` where ISBN = ?";
 		Object[] obj = { ISBN };
 		ResultSet rs = selectJDBC(sql, obj);
 		try {
@@ -32,17 +32,20 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 				m.setBook_pub(rs.getString("book_pub"));
 				m.setBook_record(rs.getString("book_record"));
 				m.setSort_id(rs.getInt("sort_id"));
+				m.setSort_name(rs.getString("sort_name"));
 			}
 			return m;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			closeJDBC();
 		}
 	}
 
 	public List<Book> selectByName(String name) {
 		List<Book> lists = new ArrayList<Book>();
-		String sql = "select * from book where book_name like %?%";
+		String sql = "select * from book a LEFT OUTER JOIN book_sort b ON a.`sort_id` = b.`sort_id` where book_name like \"%\"?\"%\"";
 		Object[] obj = { name };
 		ResultSet rs = selectJDBC(sql, obj);
 		try {
@@ -56,16 +59,19 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 				m.setBook_pub(rs.getString("book_pub"));
 				m.setBook_record(rs.getString("book_record"));
 				m.setSort_id(rs.getInt("sort_id"));
-
+				m.setSort_name(rs.getString("sort_name"));
+				
 				lists.add(m);
 			}
 			return lists;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			closeJDBC();
 		}
 	}
-	
+
 	public boolean checkIsExist(String id) {
 		String sql = "select ISBN from book where ISBN = ?";
 		Object[] obj = { id };
@@ -79,6 +85,8 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			closeJDBC();
 		}
 	}
 
@@ -92,15 +100,17 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 				m.getSort_id(), m.getBook_record(), m.getBook_price() };
 		int lines = updateJDBC(sql, obj);
 		if (lines > 0) {
+			closeJDBC();
 			return 1;
 		}
+		closeJDBC();
 		return 0;
 	}
 
-	public int update(Book m) {
-		String sql = "update book set book_name = ?, book_author = ?, book_pub = ?, book_borrow = ?, sort_id = ?, book_record = ?, book_price = ? where ISBN = ?";
-		Object[] obj = { m.getBook_name(), m.getBook_author(), m.getBook_pub(), m.getBook_borrow(), m.getSort_id(),
-				m.getBook_record(), m.getBook_price(), m.getISBN() };
+	public int update(Book m, String ISBN) {
+		String sql = "update book set ISBN = ?, book_name = ?, book_author = ?, book_pub = ?, book_borrow = ?, sort_id = ?, book_record = ?, book_price = ? where ISBN = ?";
+		Object[] obj = { m.getISBN(), m.getBook_name(), m.getBook_author(), m.getBook_pub(), m.getBook_borrow(),
+				m.getSort_id(), m.getBook_record(), m.getBook_price(), ISBN };
 		int lines = updateJDBC(sql, obj);
 		if (lines > 0) {
 			return 1;
@@ -110,8 +120,8 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 
 	public List<Book> selectList() {
 		List<Book> lists = new ArrayList<Book>();
-		//String sql = "select * from book";
-		//左外连接查询
+		// String sql = "select * from book";
+		// 左外连接查询
 		String sql = "SELECT * FROM book a LEFT OUTER JOIN book_sort b ON a.`sort_id` = b.`sort_id`";
 		Object[] obj = {};
 		ResultSet rs = selectJDBC(sql, obj);
@@ -128,13 +138,15 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 				m.setBook_record(rs.getString("book_record"));
 				m.setSort_id(rs.getInt("sort_id"));
 				m.setSort_name(rs.getString("sort_name"));
-				
+
 				lists.add(m);
 			}
 			return lists;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			closeJDBC();
 		}
 	}
 
@@ -143,8 +155,10 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 		Object[] obj = { ISBN };
 		int lines = updateJDBC(sql, obj);
 		if (lines > 0) {
+			closeJDBC();
 			return 1;
 		}
+		closeJDBC();
 		return 0;
 	}
 
@@ -180,7 +194,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 				m.setBook_record(rs.getString("book_record"));
 				m.setSort_id(rs.getInt("sort_id"));
 			}
-			int result = update(m);
+			int result = update(m, ISBN);
 			if (result == 0) {
 				System.out.println("==图书更新状态失败");
 				return false;
@@ -206,6 +220,8 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			closeJDBC();
 		}
 	}
 

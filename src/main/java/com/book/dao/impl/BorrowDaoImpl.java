@@ -23,7 +23,7 @@ public class BorrowDaoImpl extends BaseDao implements IBorrowDao {
 				m.setBook_name(rs.getString("book_name"));
 				m.setBorrow_date(rs.getString("borrow_date"));
 				m.setExpect_return_date(rs.getString("expect_return_date"));
-				m.setPrice(rs.getBigDecimal("book_price"));
+				m.setPrice(rs.getBigDecimal("price"));
 				m.setReturn_date(rs.getString("return_date"));
 				m.setS_id(rs.getString("s_id"));
 				m.setBook_borrow(rs.getInt("book_borrow"));
@@ -32,6 +32,8 @@ public class BorrowDaoImpl extends BaseDao implements IBorrowDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			closeJDBC();
 		}
 	}
 
@@ -48,7 +50,7 @@ public class BorrowDaoImpl extends BaseDao implements IBorrowDao {
 				m.setBook_name(rs.getString("book_name"));
 				m.setBorrow_date(rs.getString("borrow_date"));
 				m.setExpect_return_date(rs.getString("expect_return_date"));
-				m.setPrice(rs.getBigDecimal("book_price"));
+				m.setPrice(rs.getBigDecimal("price"));
 				m.setReturn_date(rs.getString("return_date"));
 				m.setS_id(rs.getString("s_id"));
 				m.setBook_borrow(rs.getInt("book_borrow"));
@@ -59,6 +61,8 @@ public class BorrowDaoImpl extends BaseDao implements IBorrowDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			closeJDBC();
 		}
 	}
 
@@ -68,8 +72,10 @@ public class BorrowDaoImpl extends BaseDao implements IBorrowDao {
 				m.getExpect_return_date(), m.getReturn_date(), m.getBook_borrow() };
 		int lines = updateJDBC(sql, obj);
 		if (lines > 0) {
+			closeJDBC();
 			return 1;
 		}
+		closeJDBC();
 		return 0;
 	}
 
@@ -79,8 +85,10 @@ public class BorrowDaoImpl extends BaseDao implements IBorrowDao {
 				m.getExpect_return_date(), m.getReturn_date(), m.getBook_borrow() };
 		int lines = updateJDBC(sql, obj);
 		if (lines > 0) {
+			closeJDBC();
 			return 1;
 		}
+		closeJDBC();
 		return 0;
 	}
 
@@ -98,7 +106,7 @@ public class BorrowDaoImpl extends BaseDao implements IBorrowDao {
 				m.setBook_name(rs.getString("book_name"));
 				m.setBorrow_date(rs.getString("borrow_date"));
 				m.setExpect_return_date(rs.getString("expect_return_date"));
-				m.setPrice(rs.getBigDecimal("book_price"));
+				m.setPrice(rs.getBigDecimal("price"));
 				m.setReturn_date(rs.getString("return_date"));
 				m.setS_id(rs.getString("s_id"));
 				m.setBook_borrow(rs.getInt("book_borrow"));
@@ -109,6 +117,8 @@ public class BorrowDaoImpl extends BaseDao implements IBorrowDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			closeJDBC();
 		}
 	}
 
@@ -117,8 +127,10 @@ public class BorrowDaoImpl extends BaseDao implements IBorrowDao {
 		Object[] obj = { ISBN };
 		int lines = updateJDBC(sql, obj);
 		if (lines > 0) {
+			closeJDBC();
 			return 1;
 		}
+		closeJDBC();
 		return 0;
 	}
 

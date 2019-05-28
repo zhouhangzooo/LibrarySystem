@@ -18,7 +18,7 @@ public interface IManagerService {
 
 	public int insert(Manager u);
 
-	public int update(Manager u);
+	public int update(Manager manager, String id);
 
 	public List<Manager> selectList();
 

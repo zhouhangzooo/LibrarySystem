@@ -29,6 +29,8 @@ public class BookSortDaoImpl extends BaseDao implements IBookSortDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			closeJDBC();
 		}
 	}
 
@@ -46,6 +48,8 @@ public class BookSortDaoImpl extends BaseDao implements IBookSortDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			closeJDBC();
 		}
 	}
 
@@ -62,6 +66,8 @@ public class BookSortDaoImpl extends BaseDao implements IBookSortDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			closeJDBC();
 		}
 	}
 
@@ -74,8 +80,10 @@ public class BookSortDaoImpl extends BaseDao implements IBookSortDao {
 		Object[] obj = { sort.getSort_name() };
 		int lines = updateJDBC(sql, obj);
 		if (lines > 0) {
+			closeJDBC();
 			return 1;
 		}
+		closeJDBC();
 		return 0;
 	}
 
@@ -84,8 +92,10 @@ public class BookSortDaoImpl extends BaseDao implements IBookSortDao {
 		Object[] obj = { sort.getSort_name(), sort.getId() };
 		int lines = updateJDBC(sql, obj);
 		if (lines > 0) {
+			closeJDBC();
 			return 1;
 		}
+		closeJDBC();
 		return 0;
 	}
 
@@ -107,6 +117,8 @@ public class BookSortDaoImpl extends BaseDao implements IBookSortDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			closeJDBC();
 		}
 	}
 
@@ -115,8 +127,10 @@ public class BookSortDaoImpl extends BaseDao implements IBookSortDao {
 		Object[] obj = { id };
 		int lines = updateJDBC(sql, obj);
 		if (lines > 0) {
+			closeJDBC();
 			return 1;
 		}
+		closeJDBC();
 		return 0;
 	}
 

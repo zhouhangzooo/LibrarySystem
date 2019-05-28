@@ -23,8 +23,8 @@ public class ManagerServiceImpl implements IManagerService {
 		return result;
 	}
 
-	public int update(Manager u) {
-		int result = DaoFactory.getIManagerDaoInstance().update(u);
+	public int update(Manager u, String id) {
+		int result = DaoFactory.getIManagerDaoInstance().update(u, id);
 		return result;
 	}
 

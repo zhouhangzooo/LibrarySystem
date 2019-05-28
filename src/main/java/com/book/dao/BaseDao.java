@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import cn.hutool.core.lang.Console;
+
 public class BaseDao {
 
 	public Connection conn;
@@ -22,6 +24,7 @@ public class BaseDao {
 		try {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, user, password);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
