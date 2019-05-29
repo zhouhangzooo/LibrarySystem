@@ -357,7 +357,12 @@
 						rows += "<td>" + b.price;
 						rows += "<td>" + b.borrow_date;
 						rows += "<td>" + b.expect_return_date;
-						rows += "<td>" + b.return_date;
+						if (undefined == b.return_date) {
+							var return_date = "未归还";
+							rows += "<td>" + return_date;
+						} else {
+							rows += "<td>" + b.return_date;
+						}
 						rows += "<td>" + borrow;
 						rows += '<tr>';
 
@@ -418,7 +423,12 @@
 							rows += "<td>" + b.price;
 							rows += "<td>" + b.borrow_date;
 							rows += "<td>" + b.expect_return_date;
-							rows += "<td>" + b.return_date;
+							if (undefined == b.return_date) {
+								var return_date = "未归还";
+								rows += "<td>" + return_date;
+							} else {
+								rows += "<td>" + b.return_date;
+							}
 							rows += "<td>" + borrow;
 							rows += '<tr>';
 						});
