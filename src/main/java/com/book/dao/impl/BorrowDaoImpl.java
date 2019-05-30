@@ -79,10 +79,23 @@ public class BorrowDaoImpl extends BaseDao implements IBorrowDao {
 		return 0;
 	}
 
-	public int update(Borrow m) {
-		String sql = "update borrow set ISBN = ?, s_id = ?, price = ?, book_name = ?, borrow_date = ?, expect_return_date = ?, return_date = ?, book_borrow = ?";
+	public int update(Borrow m, String ISBN) {
+		String sql = "update borrow set ISBN = ?, s_id = ?, price = ?, book_name = ?, borrow_date = ?, expect_return_date = ?, return_date = ?, book_borrow = ? where ISBN = ?";
 		Object[] obj = { m.getISBN(), m.getS_id(), m.getPrice(), m.getBook_name(), m.getBorrow_date(),
-				m.getExpect_return_date(), m.getReturn_date(), m.getBook_borrow() };
+				m.getExpect_return_date(), m.getReturn_date(), m.getBook_borrow(), ISBN };
+		int lines = updateJDBC(sql, obj);
+		if (lines > 0) {
+			closeJDBC();
+			return 1;
+		}
+		closeJDBC();
+		return 0;
+	}
+
+	// 归还图书修改个别字段
+	public int update_returnbook(Borrow m) {
+		String sql = "update borrow return_date = ?, book_borrow = ? where ISBN = ?";
+		Object[] obj = { m.getReturn_date(), m.getBook_borrow(), m.getISBN() };
 		int lines = updateJDBC(sql, obj);
 		if (lines > 0) {
 			closeJDBC();

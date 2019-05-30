@@ -20,8 +20,8 @@ public class BorrowServiceImpl implements IBorrowService {
 		return DaoFactory.getIBorrowDaoInstance().insert(borrow);
 	}
 
-	public int update(Borrow borrow) {
-		return DaoFactory.getIBorrowDaoInstance().update(borrow);
+	public int update(Borrow borrow, String ISBN) {
+		return DaoFactory.getIBorrowDaoInstance().update(borrow, ISBN);
 	}
 
 	public List<Borrow> selectList() {
@@ -30,6 +30,10 @@ public class BorrowServiceImpl implements IBorrowService {
 
 	public int deleteByISBN(String ISBN) {
 		return DaoFactory.getIBorrowDaoInstance().deleteByISBN(ISBN);
+	}
+
+	public int update_returnbook(Borrow borrow) {
+		return DaoFactory.getIBorrowDaoInstance().update_returnbook(borrow);
 	}
 
 }

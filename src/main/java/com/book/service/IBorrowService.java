@@ -18,7 +18,9 @@ public interface IBorrowService {
 
 	public int insert(Borrow borrow);
 
-	public int update(Borrow borrow);
+	public int update_returnbook(Borrow borrow);
+
+	public int update(Borrow borrow, String ISBN);
 
 	public List<Borrow> selectList();
 

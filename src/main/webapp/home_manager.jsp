@@ -347,6 +347,8 @@
 							borrow = "可借阅";
 						} else if (borrow == 1) {
 							borrow = "已借阅";
+						} else if (borrow == 2) {
+							borrow = "已归还";
 						} else {
 							borrow = "未知状态";
 						}
@@ -413,6 +415,8 @@
 								borrow = "可借阅";
 							} else if (borrow == 1) {
 								borrow = "已借阅";
+							} else if (borrow == 2) {
+								borrow = "已归还";
 							} else {
 								borrow = "未知状态";
 							}

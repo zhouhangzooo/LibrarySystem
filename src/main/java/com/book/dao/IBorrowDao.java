@@ -17,8 +17,10 @@ public interface IBorrowDao {
 	public List<Borrow> selectByID(String id);
 	
 	public int insert(Borrow borrow);
+	
+	public int update_returnbook(Borrow borrow);
 
-	public int update(Borrow borrow);
+	public int update(Borrow borrow, String ISBN);
 
 	public List<Borrow> selectList();
 

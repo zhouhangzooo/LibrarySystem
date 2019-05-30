@@ -60,7 +60,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 				m.setBook_record(rs.getString("book_record"));
 				m.setSort_id(rs.getInt("sort_id"));
 				m.setSort_name(rs.getString("sort_name"));
-				
+
 				lists.add(m);
 			}
 			return lists;
@@ -214,6 +214,54 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 			result = DaoFactory.getIBorrowDaoInstance().insert(borrow);
 			if (result == 0) {
 				System.out.println("==借阅插入数据失败");
+				return false;
+			}
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			closeJDBC();
+		}
+	}
+
+	/**
+	 * 归还操作
+	 */
+	public boolean returnBookStatus(String ISBN, String return_date) {
+		Book m = new Book();
+		String sql = "select * from book where ISBN = ?";
+		Object[] obj = { ISBN };
+		ResultSet rs = selectJDBC(sql, obj);
+		try {
+			while (rs.next()) {
+				m.setISBN(rs.getString("iSBN"));
+				m.setBook_author(rs.getString("book_author"));
+				m.setBook_name(rs.getString("book_name"));
+				if (rs.getInt("book_borrow") != 1) {
+					return false;
+				}
+				m.setBook_borrow(0);
+				m.setBook_price(rs.getBigDecimal("book_price"));
+				m.setBook_pub(rs.getString("book_pub"));
+				m.setBook_record(rs.getString("book_record"));
+				m.setSort_id(rs.getInt("sort_id"));
+			}
+			int result = update(m, ISBN);
+			if (result == 0) {
+				System.out.println("==图书更新状态失败");
+				return false;
+			}
+
+			// 在借阅表中修改数据
+			Borrow borrow = new Borrow();
+			borrow.setISBN(m.getISBN());
+			borrow.setBook_borrow(2); //借阅表中2为已归还
+			borrow.setReturn_date(return_date); // 当归还时才设置日期
+
+			result = DaoFactory.getIBorrowDaoInstance().update_returnbook(borrow);
+			if (result == 0) {
+				System.out.println("==借阅修改数据失败");
 				return false;
 			}
 			return true;

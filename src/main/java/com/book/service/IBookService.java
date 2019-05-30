@@ -26,4 +26,6 @@ public interface IBookService {
 
 	public boolean updateBookStatus(String ISBN, String s_id, String borrow_date, String expect_return_date);
 
+	public boolean returnBookStatus(String ISBN, String return_date);
+
 }

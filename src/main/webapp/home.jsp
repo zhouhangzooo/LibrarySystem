@@ -117,6 +117,8 @@
 										borrow = "可借阅";
 									} else if (borrow == 1) {
 										borrow = "已借阅";
+									} else if (borrow == 2) {
+										borrow = "已归还";
 									} else {
 										borrow = "未知状态";
 									}
@@ -242,6 +244,39 @@
 		,
 					borrow_date : borrow_date,
 					expect_return_date : valueDate
+				},
+				dataType : "json",
+				success : function(data) {
+					if (data.code == "000000") {
+						alert("借阅成功！");
+					} else {
+						alert("借阅失败！");
+					}
+				}
+			});
+		}
+		
+		//归还操作
+		function returnBook(ISBN, i, borrow) {
+			if (borrow != 1) {
+				return alert("当前图书不是借阅状态！");
+			}
+			var valueDate = $("#myDate" + i).val();
+			if (valueDate === "") {
+				return alert("请输入归还日期");
+			}
+			// 比较日期
+			//var mDate = new Date(valueDate);
+			//console.log(mDate.getFullYear() + "===" + mDate.getMonth() + 1 + '---' + mDate.getDate());
+			var curDate = new Date();
+			var return_date = curDate.getFullYear() + '-'
+					+ (curDate.getMonth() + 1) + '-' + curDate.getDate();
+			$.ajax({
+				type : "POST",
+				url : "/books/ReturnBookServlet",
+				data : {
+					ISBN : ISBN,
+					return_date : return_date
 				},
 				dataType : "json",
 				success : function(data) {
