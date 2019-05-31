@@ -166,4 +166,14 @@
 		<servlet-name>QueryBookByNameServlet</servlet-name>
 		<url-pattern>/QueryBookByNameServlet</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>ReturnBookServlet</display-name>
+		<servlet-name>ReturnBookServlet</servlet-name>
+		<servlet-class>com.book.servlet.borrow.ReturnBookServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ReturnBookServlet</servlet-name>
+		<url-pattern>/ReturnBookServlet</url-pattern>
+	</servlet-mapping>
 </web-app>

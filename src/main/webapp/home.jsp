@@ -110,39 +110,37 @@
 							return;
 						}
 						var rows = "";
-						$.each(datas,
-								function(i, b) {
-									var borrow = b.book_borrow;
-									if (borrow == 0) {
-										borrow = "可借阅";
-									} else if (borrow == 1) {
-										borrow = "已借阅";
-									} else if (borrow == 2) {
-										borrow = "已归还";
-									} else {
-										borrow = "未知状态";
-									}
+						$.each(datas, function(i, b) {
+							var borrow = b.book_borrow;
+							if (borrow == 0) {
+								borrow = "可借阅";
+							} else if (borrow == 1) {
+								borrow = "已借阅";
+							} else if (borrow == 2) {
+								borrow = "已归还";
+							} else {
+								borrow = "未知状态";
+							}
 
-									rows += '<tr>';
-									rows += "<td>" + b.ISBN;
-									rows += "<td>" + b.s_id;
-									rows += "<td>" + b.book_name;
-									rows += "<td>" + b.price;
-									rows += "<td>" + b.borrow_date;
-									rows += "<td>" + b.expect_return_date;
-									if (undefined == b.return_date) {
-										var return_date = "未归还";
-										rows += "<td>" + return_date;
-									} else {
-										rows += "<td>" + b.return_date;
-									}
-									rows += "<td>" + borrow;
-									rows += "<td>" + "<a href="
-											+ 'javascript:returnBook(' + b.ISBN
-											+ ',' + i + ',' + b.book_borrow
-											+ ')' + ">归还</a>";
-									rows += '<tr>';
-								});
+							rows += '<tr>';
+							rows += "<td>" + b.ISBN;
+							rows += "<td>" + b.s_id;
+							rows += "<td>" + b.book_name;
+							rows += "<td>" + b.price;
+							rows += "<td>" + b.borrow_date;
+							rows += "<td>" + b.expect_return_date;
+							if (undefined == b.return_date) {
+								var return_date = "未归还";
+								rows += "<td>" + return_date;
+							} else {
+								rows += "<td>" + b.return_date;
+							}
+							rows += "<td>" + borrow;
+							rows += "<td>" + "<a href="
+									+ 'javascript:returnBook(\'' + b.ISBN
+									+ '\',' + b.book_borrow + ')' + ">归还</a>";
+							rows += '<tr>';
+						});
 						$("#queryBorrow_list").html(rows);
 						$("#tableQueryBorrowDiv").show();
 					} else {
@@ -202,9 +200,9 @@
 															+ "<input type ='date' id='myDate" + i + "'" + " style='text-align:center;'>";
 													rows += "<td>"
 															+ "<a href="
-															+ 'javascript:borrow('
-															+ b.ISBN + ',' + i
-															+ ','
+															+ 'javascript:borrow(\''
+															+ b.ISBN + '\','
+															+ i + ','
 															+ b.book_borrow
 															+ ')' + ">借阅</a>";
 													rows += '<tr>';
@@ -249,21 +247,18 @@
 				success : function(data) {
 					if (data.code == "000000") {
 						alert("借阅成功！");
+						location.reload();
 					} else {
 						alert("借阅失败！");
 					}
 				}
 			});
 		}
-		
+
 		//归还操作
-		function returnBook(ISBN, i, borrow) {
+		function returnBook(ISBN, borrow) {
 			if (borrow != 1) {
 				return alert("当前图书不是借阅状态！");
-			}
-			var valueDate = $("#myDate" + i).val();
-			if (valueDate === "") {
-				return alert("请输入归还日期");
 			}
 			// 比较日期
 			//var mDate = new Date(valueDate);
@@ -281,9 +276,10 @@
 				dataType : "json",
 				success : function(data) {
 					if (data.code == "000000") {
-						alert("借阅成功！");
+						alert("归还成功！");
+						location.reload();
 					} else {
-						alert("借阅失败！");
+						alert("归还失败！");
 					}
 				}
 			});
@@ -332,8 +328,8 @@
 								rows += "<td>"
 										+ "<input type ='date' id='myDate0' style='text-align:center;'>";
 								rows += "<td>" + "<a href="
-										+ 'javascript:borrow(' + b.ISBN + ','
-										+ 0 + ',' + b.book_borrow + ')'
+										+ 'javascript:borrow(\'' + b.ISBN
+										+ '\',' + 0 + ',' + b.book_borrow + ')'
 										+ ">借阅</a>";
 								rows += '<tr>';
 
@@ -400,9 +396,9 @@
 															+ "<input type ='date' id='myDate" + i + "'" + " style='text-align:center;'>";
 													rows += "<td>"
 															+ "<a href="
-															+ 'javascript:borrow('
-															+ b.ISBN + ',' + i
-															+ ','
+															+ 'javascript:borrow(\''
+															+ b.ISBN + '\','
+															+ i + ','
 															+ b.book_borrow
 															+ ')' + ">借阅</a>";
 													rows += '<tr>';

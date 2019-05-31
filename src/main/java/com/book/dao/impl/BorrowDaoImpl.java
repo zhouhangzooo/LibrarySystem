@@ -94,7 +94,7 @@ public class BorrowDaoImpl extends BaseDao implements IBorrowDao {
 
 	// 归还图书修改个别字段
 	public int update_returnbook(Borrow m) {
-		String sql = "update borrow return_date = ?, book_borrow = ? where ISBN = ?";
+		String sql = "update borrow set return_date = ?, book_borrow = ? where ISBN = ?";
 		Object[] obj = { m.getReturn_date(), m.getBook_borrow(), m.getISBN() };
 		int lines = updateJDBC(sql, obj);
 		if (lines > 0) {
