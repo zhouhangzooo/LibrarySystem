@@ -68,7 +68,7 @@
 				name="book_borrow" type="radio" value="1" />已借阅</label>
 
 			<div style="display: flex; margin-top: 20px; height: 30px">
-				<button id="addBookButton" type="button" style="margin-top: 6.6px">添加</button>
+				<button id="addBookButton" type="button" style="margin-top: 6.6px">添加图书</button>
 				<input id="retAddBookValue" type="reset" style="margin-left: 10px;"
 					value="重置" />
 			</div>
@@ -76,6 +76,14 @@
 		</form>
 
 		<p id="info" style="font-size: 14px; color: red"></p>
+
+		<form>
+			添加分类：<input id="book_sort_input" maxlength="12"><br>
+			<button id="addBookSortButton" type="button"
+				style="margin-top: 6.6px">提交</button>
+		</form>
+		<p id="info_sort" style="font-size: 14px; color: red"></p>
+
 	</div>
 
 	<!-- 图书编辑界面 -->
@@ -94,7 +102,7 @@
 			<label><input name="edit_book_borrow" type="radio" value="1" />已借阅</label>
 
 			<div style="display: flex; margin-top: 20px; height: 30px">
-				<button id="editBookButton" type="button">编辑提交</button>
+				<button onclick="editRequest()" type="button">编辑提交</button>
 				<input type="reset" style="margin-left: 10px;" value="重置" />
 			</div>
 
@@ -200,6 +208,7 @@
 			$("#info_edit").text("");
 			$("#info_query").text("");
 			$("#info_query_borrow").text("");
+			$("#info_sort").text("");
 
 			for (i = 0; i < divArrays.length; i++) {
 				$("#" + divArrays[i]).hide();
@@ -502,7 +511,7 @@
 							});
 						};
 					});
-					console.log(rows);
+					//console.log(rows);
 					hiddenDiv(0);
 					$("#appAccount_list").html(rows);
 				}
@@ -580,52 +589,55 @@
 			$("#edit_book_record").val(b.book_record);
 			$("#edit_book_price").val(b.book_price);
 			//$('#edit_booksort_list option:selected').val(b.sort_name);
-			$('input[name="edit_book_borrow"]:checked').val(b.book_borrow);
+			//$('input[name="edit_book_borrow"]:checked').val(b.book_borrow);
 
+			if (b.book_borrow == 0) {
+				$('input[name="edit_book_borrow"]').eq(0).attr("checked", true);
+				$('input[name="edit_book_borrow"]').eq(1)
+						.attr("checked", false);
+			} else {
+				$('input[name="edit_book_borrow"]').eq(0)
+						.attr("checked", false);
+				$('input[name="edit_book_borrow"]').eq(1).attr("checked", true);
+			}
 
 			//编辑图书-提交操作
-			$("#editBookButton")
-					.click(
-							function() {
-								var book_ISBN = $("#edit_book_ISBN").val(); //jqury val()方法返回元素value属性
-								var book_name = $("#edit_book_name").val();
-								var book_author = $("#edit_book_author").val();
-								var book_pub = $("#edit_book_pub").val();
-								var book_record = $("#edit_book_record").val();
-								var book_price = $("#edit_book_price").val();
-								var book_sort = $(
-										'#edit_booksort_list option:selected')
-										.val();
-								var book_borrow = $(
-										'input[name="edit_book_borrow"]:checked')
-										.val();
-								console.log('==========book_borrow' + book_borrow);
-								return;
-								$.ajax({
-									type : "POST",
-									url : "/books/EditBookServlet",
-									data : {
-										ISBN : ISBN,
-										book_ISBN : book_ISBN,
-										book_name : book_name,
-										book_author : book_author,
-										book_pub : book_pub,
-										book_record : book_record,
-										book_price : book_price,
-										book_sort : book_sort,
-										book_borrow : book_borrow
-									},
-									dataType : "json",
-									success : function(data) {
-										if (data.code == "000000") {
-											alert("编辑成功！");
-											$("#allBook").trigger("click");
-										} else {
-											alert("编辑失败！");
-										}
-									}
-								});
-							})
+			editRequest = function() {
+				console.log('=================edit1');
+				var book_ISBN = $("#edit_book_ISBN").val(); //jqury val()方法返回元素value属性
+				var book_name = $("#edit_book_name").val();
+				var book_author = $("#edit_book_author").val();
+				var book_pub = $("#edit_book_pub").val();
+				var book_record = $("#edit_book_record").val();
+				var book_price = $("#edit_book_price").val();
+				var book_sort = $('#edit_booksort_list option:selected').val();
+				var book_borrow = $('input[name="edit_book_borrow"]:checked')
+						.val();
+				$.ajax({
+					type : "POST",
+					url : "/books/EditBookServlet",
+					data : {
+						ISBN : ISBN,
+						book_ISBN : book_ISBN,
+						book_name : book_name,
+						book_author : book_author,
+						book_pub : book_pub,
+						book_record : book_record,
+						book_price : book_price,
+						book_sort : book_sort,
+						book_borrow : book_borrow
+					},
+					dataType : "json",
+					success : function(data) {
+						if (data.code == "000000") {
+							alert("编辑成功！");
+							$("#allBook").trigger("click");
+						} else {
+							alert("编辑失败！");
+						}
+					}
+				});
+			};
 
 		};
 
@@ -696,6 +708,30 @@
 							}, 800);
 						} else {
 							$("#info").text(data.message);
+						}
+					}
+				});
+			}
+		});
+
+		$("#addBookSortButton").click(function() {
+			var sort_name = $("#book_sort_input").val();
+			if (sort_name == '') {
+				$("#info_sort").text("提示:图书分类名称不能为空");
+			} else {
+				$.ajax({
+					type : "POST",
+					url : "/books/AddBookSortServlet",
+					data : {
+						sort_name : sort_name,
+					},
+					dataType : "json",
+					success : function(data) {
+						if (data.code == "000000") {
+							$("#info_sort").text("提示:添加图书分类成功");
+							requestBookSort();
+						} else {
+							$("#info_sort").text(data.message);
 						}
 					}
 				});

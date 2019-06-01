@@ -176,4 +176,14 @@
 		<servlet-name>ReturnBookServlet</servlet-name>
 		<url-pattern>/ReturnBookServlet</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>AddBookSortServlet</display-name>
+		<servlet-name>AddBookSortServlet</servlet-name>
+		<servlet-class>com.book.servlet.booksort.AddBookSortServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddBookSortServlet</servlet-name>
+		<url-pattern>/AddBookSortServlet</url-pattern>
+	</servlet-mapping>
 </web-app>

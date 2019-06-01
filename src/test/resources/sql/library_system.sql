@@ -35,7 +35,8 @@ CREATE TABLE `manager` (
 CREATE TABLE `book_sort` (
   `sort_id` int NOT NULL AUTO_INCREMENT,
   `sort_name` varchar(20) NOT NULL,
-  PRIMARY KEY (`sort_id`)
+  PRIMARY KEY (`sort_id`),
+  UNIQUE KEY (`sort_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `book` (
@@ -48,7 +49,7 @@ CREATE TABLE `book` (
   `book_price` DECIMAL NOT NULL,
   `book_borrow` int DEFAULT 0,
   PRIMARY KEY (`ISBN`),
-  FOREIGN KEY (sort_id) REFERENCES book_sort(sort_id)
+  FOREIGN KEY (sort_id) REFERENCES book_sort(sort_id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `borrow` (
@@ -60,7 +61,8 @@ CREATE TABLE `borrow` (
   `borrow_date` DATETIME NOT NULL,
   `expect_return_date` DATETIME NOT NULL,
   `return_date` DATETIME NOT NULL,
+  `book_borrow` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (s_id) REFERENCES student(s_id),
-  FOREIGN KEY (ISBN) REFERENCES book(ISBN)
+  FOREIGN KEY (s_id) REFERENCES student(s_id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (ISBN) REFERENCES book(ISBN) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
