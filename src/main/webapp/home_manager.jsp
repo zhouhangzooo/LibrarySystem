@@ -29,6 +29,8 @@
 			style="margin-left: 20px;">查询图书</button>
 		<button type="submit" style="margin-left: 20px;"
 			onclick="queryborrowClick()">借阅查询</button>
+		<button type="submit" style="margin-left: 20px;"
+			onclick="addBookSortClick()">图书分类</button>
 	</div>
 
 	<!-- 所有图书界面 -->
@@ -77,13 +79,6 @@
 
 		<p id="info" style="font-size: 14px; color: red"></p>
 
-		<form>
-			添加分类：<input id="book_sort_input" maxlength="12"><br>
-			<button id="addBookSortButton" type="button"
-				style="margin-top: 6.6px">提交</button>
-		</form>
-		<p id="info_sort" style="font-size: 14px; color: red"></p>
-
 	</div>
 
 	<!-- 图书编辑界面 -->
@@ -97,9 +92,7 @@
 				style="width: 149.24px" id="edit_booksort_list">
 			</select> <br>收录时间：<input type="date" id="edit_book_record"
 				style='width: 149.24px; text-align: center;'><br> 图书价格：<input
-				id="edit_book_price" maxlength="8"><br> 借阅状态： <label><input
-				name="edit_book_borrow" type="radio" value="0" checked="checked" />可借阅</label>
-			<label><input name="edit_book_borrow" type="radio" value="1" />已借阅</label>
+				id="edit_book_price" maxlength="8"><br>
 
 			<div style="display: flex; margin-top: 20px; height: 30px">
 				<button onclick="editRequest()" type="button">编辑提交</button>
@@ -192,6 +185,28 @@
 		</form>
 	</div>
 
+	<!-- 添加图书分类界面 -->
+	<div id="addBookSortDiv" style="display: none; margin: 20px;">
+		<form id="addBookSortForm" style="display: none;">
+			添加图书分类：<input id="book_sort_input" maxlength="12"><br>
+			<button id="addBookSortButton" type="button"
+				style="margin-top: 6.6px">提交</button>
+		</form>
+		<p id="info_sort" style="font-size: 14px; color: red"></p>
+		<table id="tableBookSortDiv" frame=hsides width="300" border
+			rules=none cellspacing=0 cellpadding="5"
+			style="display: none; text-align: center; margin-top: 10px">
+			<thead>
+				<tr>
+					<th>图书分类名称</th>
+					<th><td><button onclick='addBookSort()'>添加分类</button>
+				</th></tr>
+			</thead>
+			<tbody id="addbooksort_list">
+			</tbody>
+		</table>
+	</div>
+
 	<script src="./static/js/jquery-3.2.1.js"></script>
 	<script type="text/javascript">
 		var divArrays = new Array();
@@ -202,7 +217,9 @@
 		divArrays[4] = "tableQueryBookDiv";
 		divArrays[5] = "queryBorrowDiv";
 		divArrays[6] = "tableQueryBorrowDiv";
-
+		divArrays[7] = "addBookSortDiv";
+		divArrays[8] = "addBookSortForm";
+		
 		function hiddenDiv(index) {
 			$("#info").text(""); //切换页面的时候简单地隐藏了info信息
 			$("#info_edit").text("");
@@ -225,6 +242,43 @@
 		function queryborrowClick() {
 			hiddenDiv(5);
 			queryBorrow(1, null);
+		}
+		
+		//在图书分类table中添加分类
+		function addBookSort() {
+			$("#addBookSortForm").show();
+		}
+
+		//打开添加分类div
+		function addBookSortClick() {
+			hiddenDiv(7);
+			//请求图书分类并显示
+			$.ajax({
+				type : "POST",
+				url : "/books/BookSortServlet",
+				dataType : "json",
+				success : function(data) {
+					if (data.code == "000000") {
+						var datas = data.data;
+						if (datas.length == "0" || datas.length == 0) {
+							//$("#info_sort").text("暂无数据");
+							$("#addBookSortForm").show();
+							return;
+						}
+						var rows = "";
+						$.each(datas, function(i, b) {
+							rows += '<tr>';
+							rows += "<td>" + b.sort_name;
+							//rows += "<td><button onclick='addBookSort()'>添加分类</button>";
+							rows += '<tr>';
+						});
+						$("#addbooksort_list").html(rows);
+						$("#tableBookSortDiv").show();
+					} else {
+						$("#info_sort").text(data.message);
+					}
+				}
+			});
 		}
 
 		//查询图书div--通过搜索图书ISBN查询
@@ -487,29 +541,6 @@
 								+ b.ISBN + "\")' style='color:red'>删除</a>";
 						rows += '<tr>';
 
-						//删除操作
-						deleteBook = function() {
-							var r = confirm("是否要删除该图书");
-							if (r != true) {
-								return;
-							}
-							$.ajax({
-								type : "POST",
-								url : "/books/DeleteBookServlet",
-								data : {
-									ISBN : b.ISBN
-								},
-								dataType : "json",
-								success : function(data) {
-									if (data.code == "000000") {
-										alert("删除成功！");
-										location.reload();
-									} else {
-										alert("删除失败！");
-									}
-								}
-							});
-						};
 					});
 					//console.log(rows);
 					hiddenDiv(0);
@@ -589,21 +620,9 @@
 			$("#edit_book_record").val(b.book_record);
 			$("#edit_book_price").val(b.book_price);
 			//$('#edit_booksort_list option:selected').val(b.sort_name);
-			//$('input[name="edit_book_borrow"]:checked').val(b.book_borrow);
-
-			if (b.book_borrow == 0) {
-				$('input[name="edit_book_borrow"]').eq(0).attr("checked", true);
-				$('input[name="edit_book_borrow"]').eq(1)
-						.attr("checked", false);
-			} else {
-				$('input[name="edit_book_borrow"]').eq(0)
-						.attr("checked", false);
-				$('input[name="edit_book_borrow"]').eq(1).attr("checked", true);
-			}
 
 			//编辑图书-提交操作
 			editRequest = function() {
-				console.log('=================edit1');
 				var book_ISBN = $("#edit_book_ISBN").val(); //jqury val()方法返回元素value属性
 				var book_name = $("#edit_book_name").val();
 				var book_author = $("#edit_book_author").val();
@@ -611,8 +630,7 @@
 				var book_record = $("#edit_book_record").val();
 				var book_price = $("#edit_book_price").val();
 				var book_sort = $('#edit_booksort_list option:selected').val();
-				var book_borrow = $('input[name="edit_book_borrow"]:checked')
-						.val();
+				var book_borrow = b.book_borrow;
 				$.ajax({
 					type : "POST",
 					url : "/books/EditBookServlet",
@@ -729,7 +747,7 @@
 					success : function(data) {
 						if (data.code == "000000") {
 							$("#info_sort").text("提示:添加图书分类成功");
-							requestBookSort();
+							addBookSortClick();
 						} else {
 							$("#info_sort").text(data.message);
 						}

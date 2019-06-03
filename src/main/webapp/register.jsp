@@ -56,7 +56,7 @@
 							$("#info").text("提示:注册成功");
 							setTimeout(function() {
 								window.location.href = "login.jsp"
-							}, 1000);
+							}, 800);
 						} else {
 							$("#info").text(data.message);
 						}
