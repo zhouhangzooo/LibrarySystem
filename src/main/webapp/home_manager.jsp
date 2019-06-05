@@ -17,6 +17,11 @@
 </head>
 <body>
 	<%
+		//out.print(request.getParameter("id") + "=====" + session.getAttribute("isManager"));
+		if (session.getAttribute("isManager") == null || request.getParameter("id") == null) //如果Admincheck.jsp页面获取的数据为空 
+		{
+			response.sendRedirect("login_manager.jsp");
+		}
 		String id = request.getParameter("id");
 	%>
 	<div style="display: flex">
@@ -31,6 +36,9 @@
 			onclick="queryborrowClick()">借阅查询</button>
 		<button type="submit" style="margin-left: 20px;"
 			onclick="addBookSortClick()">图书分类</button>
+		<form style="margin-left: 30px" action="exitManagerLogin.jsp">
+			<button type="submit">退出</button>
+		</form>
 	</div>
 
 	<!-- 所有图书界面 -->
@@ -199,8 +207,10 @@
 			<thead>
 				<tr>
 					<th>图书分类名称</th>
-					<th><td><button onclick='addBookSort()'>添加分类</button>
-				</th></tr>
+					<th>
+					<td><button onclick='addBookSort()'>添加分类</button>
+					</th>
+				</tr>
 			</thead>
 			<tbody id="addbooksort_list">
 			</tbody>
@@ -219,7 +229,7 @@
 		divArrays[6] = "tableQueryBorrowDiv";
 		divArrays[7] = "addBookSortDiv";
 		divArrays[8] = "addBookSortForm";
-		
+
 		function hiddenDiv(index) {
 			$("#info").text(""); //切换页面的时候简单地隐藏了info信息
 			$("#info_edit").text("");
@@ -243,7 +253,7 @@
 			hiddenDiv(5);
 			queryBorrow(1, null);
 		}
-		
+
 		//在图书分类table中添加分类
 		function addBookSort() {
 			$("#addBookSortForm").show();

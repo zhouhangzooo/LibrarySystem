@@ -52,6 +52,7 @@
 							success : function(data) {
 								if (data.code == "000000") {
 									//$("#info").text("提示:登陆成功");
+									<% session.setAttribute("isLogin",true); %>
 									window.location.href = "home.jsp?id="
 											+ data.data.id;
 								} else {

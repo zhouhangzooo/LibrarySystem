@@ -52,6 +52,7 @@
 							success : function(data) {
 								if (data.code == "000000") {
 									//$("#info").text("提示:登陆成功");
+									<% session.setAttribute("isManager",true); %>
 									window.location.href = "home_manager.jsp?id="
 											+ data.data.id;
 								} else {
