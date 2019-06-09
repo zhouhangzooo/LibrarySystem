@@ -7,7 +7,9 @@
 </head>
 <body>
 	<%
+		//session.setAttribute("isManager",null);
 		session.removeAttribute("isManager");
+		//session.invalidate(); 
 		response.sendRedirect("login_manager.jsp");
 	%>
 </body>

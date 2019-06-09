@@ -12,10 +12,11 @@
 	<form>
 		学号：<input id="id" maxlength="18"><br> 姓名：<input id="name"
 			maxlength="5"><br> 密码：<input id="password"
-			type="password" maxlength="18"><br> 性别：<input id="sex"
-			maxlength="2"><br> 年龄：<input id="age" maxlength="3"><br>
-		专业：<input id="profession" maxlength="15"><br> 年级：<input
-			id="grade" maxlength="15"><br>
+			type="password" maxlength="18"><br> 性别：<label><input
+			name="sex" type="radio" value="0" checked="checked" />男</label> <label><input
+			name="sex" type="radio" value="1" />女</label> <br> 年龄：<input id="age"
+			maxlength="3"><br> 专业：<input id="profession"
+			maxlength="15"><br> 年级：<input id="grade" maxlength="15"><br>
 	</form>
 
 	<button id="registerButton" type="submit" style="margin-top: 20px">注册</button>
@@ -28,7 +29,12 @@
 			var password = $("#password").val();
 			var name = $("#name").val();
 			var age = $("#age").val();
-			var sex = $("#sex").val();
+			var sex = $('input[name="sex"]:checked').val();
+			if (sex == 0) {
+				sex = "男";
+			} else {
+				sex = "女";
+			}
 			var grade = $("#grade").val();
 			var profession = $("#profession").val();
 			if (id == '') {

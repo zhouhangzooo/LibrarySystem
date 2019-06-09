@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -17,7 +17,6 @@
 </head>
 <body>
 	<%
-		//out.print(request.getParameter("id") + "=====" + session.getAttribute("isManager"));
 		if (session.getAttribute("isManager") == null || request.getParameter("id") == null) //如果Admincheck.jsp页面获取的数据为空 
 		{
 			response.sendRedirect("login_manager.jsp");
@@ -330,8 +329,13 @@
 						rows += "<td>" + b.book_price;
 						rows += "<td>" + b.book_record;
 						rows += "<td>" + borrow;
+						var json = JSON.stringify(b);
+						rows += "<td><a href='#' onclick='editBook(" + json
+								+ ")'>编辑</a>";
+						rows += '&nbsp;&nbsp;';
+						rows += "<a href='#'" + " onclick='deleteBook(\""
+								+ b.ISBN + "\")' style='color:red'>删除</a>";
 						rows += '<tr>';
-
 						$("#queryBook_list").html(rows);
 						$("#tableQueryBookDiv").show();
 					} else {
@@ -358,7 +362,6 @@
 				success : function(data) {
 					if (data.code == "000000") {
 						var datas = data.data;
-						console.log(datas);
 						if (datas.length == "0" || datas.length == 0) {
 							alert("暂无数据");
 							return;
@@ -382,6 +385,13 @@
 							rows += "<td>" + b.book_price;
 							rows += "<td>" + b.book_record;
 							rows += "<td>" + borrow;
+							rows += "<td><a href='#' onclick='editBook("
+									+ JSON.stringify(b) + ")'>编辑</a>";
+							//不知道为什么使用button标签会报错
+							//rows += "<td><button onclick='editBook(" + JSON.stringify(b) + ")'>编辑</button>";
+							rows += '&nbsp;&nbsp;';
+							rows += "<a href='#'" + " onclick='deleteBook(\""
+									+ b.ISBN + "\")' style='color:red'>删除</a>";
 							rows += '<tr>';
 						});
 						$("#queryBook_list").html(rows);
@@ -550,7 +560,6 @@
 						rows += "<a href='#'" + " onclick='deleteBook(\""
 								+ b.ISBN + "\")' style='color:red'>删除</a>";
 						rows += '<tr>';
-
 					});
 					//console.log(rows);
 					hiddenDiv(0);
@@ -588,9 +597,7 @@
 
 		//编辑操作
 		editBook = function(b) {
-
 			//requestBookSort();
-
 			//动态选择分类
 			$
 					.ajax({
@@ -618,7 +625,7 @@
 						}
 					});
 
-			console.log(b);
+			//console.log(b);
 			hiddenDiv(2);
 
 			var ISBN = b.ISBN;

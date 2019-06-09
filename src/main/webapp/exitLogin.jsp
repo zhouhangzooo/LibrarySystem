@@ -7,7 +7,10 @@
 </head>
 <body>
 	<%
+		//session.setAttribute("isLogin",null);
    		session.removeAttribute("isLogin");
+   		//session.invalidate(); 
+   		//out.print(session.getAttribute("isLogin"));
    		response.sendRedirect("login.jsp");
     %>
 </body>

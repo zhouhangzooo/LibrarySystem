@@ -8,8 +8,7 @@
 </head>
 <body>
 	<%
-		if (session.getAttribute("isLogin") == null || request.getParameter("id") == null) //如果Admincheck.jsp页面获取的数据为空 
-		{
+		if (session.getAttribute("isLogin") == null || request.getParameter("id") == null) {
 			response.sendRedirect("login.jsp");
 		}
 		String id = request.getParameter("id");
@@ -21,7 +20,7 @@
 			style="margin-left: 50px;">我的借阅</button>
 		<button onclick="displayAllBook()" type="submit"
 			style="margin-left: 20px;">查询图书</button>
-		<form style="margin-left: 30px" action="exitLogin.jsp">
+		<form style="margin-left: 30px" action="exitLogin.jsp" method="post">
 			<button type="submit">退出</button>
 		</form>
 	</div>

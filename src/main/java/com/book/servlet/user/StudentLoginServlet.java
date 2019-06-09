@@ -33,6 +33,7 @@ public class StudentLoginServlet extends HttpServlet {
 				json.put("data", object);
 				json.put("code", "000000");
 				json.put("message", "登录成功");
+				request.getSession().setAttribute("isLogin", "true");
 				response.getWriter().println(json);
 			} else {
 				json.put("code", "111111");
