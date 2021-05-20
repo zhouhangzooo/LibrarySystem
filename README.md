@@ -29,4 +29,4 @@ Jsp表现层：将Servlet的数据进行显示到Jsp中，这里其实用html也
 3.查询所有学生的借阅的图书，也可以通过学生学号和图书编号ISBN进行查询借阅的图书。
 
 ## 项目展示
-![](https://github.com/zhouhangzooo/LibrarySystem/blob/master/src/test/resources/image/manager_home.jpg)
+![](https://github.com/zhouhangzooo/LibrarySystem/raw/master/src/test/resources/image/manager_home.jpg)
