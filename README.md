@@ -30,3 +30,4 @@ Jsp表现层：将Servlet的数据进行显示到Jsp中，这里其实用html也
 
 ## 项目展示
 ![](https://github.com/zhouhangzooo/LibrarySystem/raw/master/src/test/resources/image/manager_home.jpg)
+![](https://raw.githubusercontent.com/zhouhangzooo/LibrarySystem/master/src/test/resources/image/manager_home.jpg)
