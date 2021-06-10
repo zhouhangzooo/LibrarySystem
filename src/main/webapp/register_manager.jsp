@@ -56,6 +56,9 @@
 						} else {
 							$("#info").text(data.message);
 						}
+					},
+					error: function (xhr,errorText,errorType) {
+						$("#info").text("" + xhr.status + "=" + errorText);
 					}
 				});
 			}

@@ -17,7 +17,7 @@ public class BaseDao {
 	// 与数据库建立连接
 	public boolean getConnection() {
 		String driver = "com.mysql.cj.jdbc.Driver";
-		String url = "jdbc:mysql://localhost:3306/library_system?serverTimezone=UTC";
+        String url = "jdbc:mysql://localhost:3306/library_system?serverTimezone=UTC";
 		String user = "root";
 		String password = "123456";
 
