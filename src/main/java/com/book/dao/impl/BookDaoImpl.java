@@ -208,7 +208,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 			borrow.setExpect_return_date(expect_return_date); // 预计归还日期由用户设置
 			borrow.setISBN(m.getISBN());
 			borrow.setPrice(m.getBook_price());
-			borrow.setReturn_date(null); // 当归还时才设置日期
+			borrow.setReturn_date(expect_return_date); // 当归还时才设置日期
 			borrow.setS_id(s_id);
 
 			result = DaoFactory.getIBorrowDaoInstance().insert(borrow);

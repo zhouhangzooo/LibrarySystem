@@ -135,7 +135,7 @@
 							rows += "<td>" + b.price;
 							rows += "<td>" + b.borrow_date;
 							rows += "<td>" + b.expect_return_date;
-							if (undefined == b.return_date) {
+							if (1 == b.book_borrow) {
 								var return_date = "未归还";
 								rows += "<td>" + return_date;
 							} else {

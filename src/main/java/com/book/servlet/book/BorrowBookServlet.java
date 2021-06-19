@@ -33,6 +33,13 @@ public class BorrowBookServlet extends HttpServlet {
 			response.getWriter().println(json);
 			return;
 		}
+		if(!StringUtils.validateEmpty(expect_return_date))
+		{
+			json.put("code", "111111");
+			json.put("message", "请输入归还日期");
+			response.getWriter().println(json);
+			return;
+		}
 		boolean result = ServiceFactory.getIBookServiceInstance().updateBookStatus(ISBN, s_id, borrow_date, expect_return_date);
 		if(result)
 		{
